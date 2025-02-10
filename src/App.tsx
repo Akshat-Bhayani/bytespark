@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import { GlobalStyles } from './styles/GlobalStyles';
 import ServiceDetail from './pages/ServiceDetail';
 import BlogPost from './pages/BlogPost';
+import ScrollToTop from './components/ScrollToTop';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -30,6 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Router>
+        <ScrollToTop />
         <AppContainer>
           <Navbar />
           <MainContent>
