@@ -164,8 +164,8 @@ const Navbar = () => {
         <NavLinks>
           <NavLink to="/" $isActive={isActive('/')}>Home</NavLink>
           <NavLink to="/services" $isActive={isActive('/services')}>Services</NavLink>
-          <NavLink to="/blog" $isActive={isActive('/blog')}>Blog</NavLink>
           <NavLink to="/about" $isActive={isActive('/about')}>About</NavLink>
+          <NavLink to="/blog" $isActive={isActive('/blog')}>Blog</NavLink>
           <NavLink to="/contact" $isActive={isActive('/contact')}>Contact</NavLink>
         </NavLinks>
 

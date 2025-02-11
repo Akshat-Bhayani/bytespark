@@ -16,6 +16,8 @@ const HeroSection = styled.section`
   align-items: center;
   position: relative;
   overflow: hidden;
+  background-image: url('./HomePage.jpg') ;
+  background-size: cover;
 `;
 
 const HeroContent = styled.div`
@@ -308,7 +310,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Transform Your Digital Presence
+            Spark Your Digital Dreams
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

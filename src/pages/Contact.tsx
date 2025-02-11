@@ -45,6 +45,7 @@ const Form = styled(motion.form)`
   display: flex;
   flex-direction: column;
   gap: ${props => props.theme.spacing.md};
+  margin-top: 100px;
 `;
 
 const Input = styled(motion.input)`
