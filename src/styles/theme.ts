@@ -1,4 +1,4 @@
-export const theme = {
+export const theme:any = {
   colors: {
     // Primary Blues
     primary: {
@@ -17,6 +17,13 @@ export const theme = {
     },
     // Text colors
     text: {
+      primary: '#000000',  // Black for main text
+      secondary: '#1e40af', // Dark blue for headings
+      light: '#ffffff',    // White text
+      muted: '#4b5563'     // Muted text
+    },
+    // light colors
+    lightText: {
       primary: '#000000',  // Black for main text
       secondary: '#1e40af', // Dark blue for headings
       light: '#ffffff',    // White text
