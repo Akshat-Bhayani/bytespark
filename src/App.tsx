@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import Navbar from './components/Navbar';
@@ -52,4 +52,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
