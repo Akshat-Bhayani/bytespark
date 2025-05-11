@@ -80,7 +80,7 @@ const Price = styled.div`
   margin: 1.5rem 0;
   
   &::before {
-    content: '$';
+    content: '₹';
     font-size: 1.5rem;
     vertical-align: super;
   }
@@ -113,6 +113,34 @@ const ServiceLink = styled(Link)`
   }
 `;
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+};
+
+const Hero = styled.div`
+  text-align: center;
+  margin-bottom: ${props => props.theme.spacing.xxl};
+  
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: ${props => props.theme.colors.text.secondary};
+    margin-bottom: ${props => props.theme.spacing.lg};
+  }
+  
+  p {
+    font-size: 1.25rem;
+    color: ${props => props.theme.colors.text.muted};
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+`;
+
 const Services = () => {
   return (
     <ServicesContainer
@@ -120,7 +148,9 @@ const Services = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h1>Our Services & Pricing</h1>
+       <Hero>
+        <motion.h1 variants={itemVariants}>Our Services & Pricing</motion.h1>
+      </Hero>
       <PricingGrid>
         {services.map((service, index) => (
           <ServiceLink to={`/services/${service.id}`} key={service.id}>

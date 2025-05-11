@@ -16,7 +16,7 @@ const HeroSection = styled.section`
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-image: url('./HomePage.jpg') ;
+  background-image: url('./img//HomePage.jpg') ;
   background-size: cover;
 `;
 
@@ -112,7 +112,7 @@ const AboutImage = styled.img`
   width: 100%;
   height: auto;
   border-radius: ${props => props.theme.borderRadius.large};
-  box-shadow: ${props => props.theme.shadows.medium};
+  box-shadow: ${props => props.theme.shadows.glow};
 `;
 
 const BlogGrid = styled.div`
@@ -375,7 +375,7 @@ const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <AboutImage src="/about-preview.jpg" alt="About ByteSpark" />
+            <AboutImage src="./img/about-page.jpg" alt="About ByteSpark" />
           </motion.div>
         </AboutPreview>
       </Section>

@@ -29,7 +29,7 @@ export const services: Service[] = [
   },
   {
     id: 'cloud-solutions',
-    title: 'Cloud Solutions',
+    title: 'Smart Cloud Solutions',
     description: 'Scalable cloud infrastructure and migration services',
     price: {
       start: 1999,
@@ -55,7 +55,7 @@ export const services: Service[] = [
   },
   {
     id: 'graphic-design',
-    title: 'Graphic Design',
+    title: 'Professional Graphic Design',
     description: 'Creative design solutions for your brand identity',
     price: {
       start: 999,
@@ -81,7 +81,7 @@ export const services: Service[] = [
   },
   {
     id: 'uiux-design',
-    title: 'UI/UX Design',
+    title: 'User Centered UI/UX Design',
     description: 'User-centered design solutions for digital products',
     price: {
       start: 1499,
@@ -107,7 +107,7 @@ export const services: Service[] = [
   },
   {
     id: 'data-analytics',
-    title: 'Data Analytics',
+    title: 'Advanced Data Analytics',
     description: 'Transform your data into actionable insights',
     price: {
       start: 2499,
