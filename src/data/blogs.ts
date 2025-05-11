@@ -7,7 +7,7 @@ export const blogPosts: BlogPost[] = [
     description: "Learn about the latest features in React 18 and how to implement them.",
     content: `React 18 brings exciting new features that improve performance and user experience. 
     In this article, we'll explore Concurrent Rendering, Automatic Batching, and new Hooks...`,
-    image: "/blog/react.jpg",
+    image: "./img/react.jpg",
     tags: ["React", "JavaScript"],
     date: "May 15, 2024",
     author: "John Doe"
@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
     description: "Explore the latest trends in cloud computing and their impact on businesses.",
     content: `The cloud computing landscape is evolving rapidly. Let's dive into the key trends 
     shaping the industry in 2024, including multi-cloud strategies, serverless computing...`,
-    image: "/blog/cloud.jpg",
+    image: "./img/cloud.jpg",
     tags: ["Cloud", "AWS"],
     date: "May 12, 2024",
     author: "Jane Smith"
@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
     description: "Essential principles for creating user-friendly interfaces.",
     content: `Good design is crucial for user engagement. In this comprehensive guide, 
     we'll cover the fundamental principles of UI/UX design that every designer should know...`,
-    image: "/blog/uiux.jpg",
+    image: "./img/uiux.png",
     tags: ["UI/UX", "Design"],
     date: "May 10, 2024",
     author: "Mike Johnson"
@@ -40,7 +40,7 @@ export const blogPosts: BlogPost[] = [
     description: "Learn how to write better TypeScript code with these best practices.",
     content: `TypeScript has become the standard for large-scale JavaScript applications. 
     Here are the best practices that will help you write more maintainable TypeScript code...`,
-    image: "/blog/typescript.jpg",
+    image: "./img/typescript.jpg",
     tags: ["TypeScript", "JavaScript"],
     date: "May 8, 2024",
     author: "Sarah Williams"
