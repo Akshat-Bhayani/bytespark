@@ -122,17 +122,63 @@ const itemVariants = {
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    Name: '',
+    Email: '',
+    Subject: '',
+    Message: '',
+    Number: '',
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
-  };
+    const apiEndPoint = 'https://script.google.com/macros/s/AKfycbyrlWED2ew2FIQMgMjoiIGlmfN7tE1bl_78wnVD5ErL7HjGnhKLosy_-a0SkKKngzVJDg/exec';
+    const formD = new FormData();
+    formD.append('Name',formData.Name);
+    formD.append('Email',formData.Email);
+    formD.append('Subject',formData.Subject);
+    formD.append('Message',formData.Message);
+    formD.append('PhoneNumber',formData.Number);
+    formD.append('Date',new Date().toLocaleDateString())
+    setFormData({
+      Name: '',
+      Email: '',
+      Subject: '',
+      Message: '',
+      Number: '',
+    });
+    try {
+      const response = await fetch(apiEndPoint, {
+        method: 'POST',
+        body: formD,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+  
+      const data = await response.json();
+      setFormData({
+        Name: '',
+        Email: '',
+        Subject: '',
+        Message: '',
+        Number: '',
+      });
+      console.log('data',data);
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : 'Something went wrong');
+    } 
+  }; 
+
+  // const handleSubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
+  //   // Handle form submission here
+  //   try{
+  //   }catch(error){
+
+  //   }
+  //   console.log(formData);
+  // };
 
   return (
     <ContactContainer
@@ -152,35 +198,45 @@ const Contact = () => {
       </motion.h1>
       
       <ContactGrid>
-        <ContactInfo>
-          <motion.h2 variants={itemVariants}>Let's Connect</motion.h2>
+      <ContactInfo style={{ marginTop: '45px' }}>
+          {/* <motion.h2 variants={itemVariants}>Let's Connect</motion.h2> */}
           <motion.p variants={itemVariants}>
             Have a question or want to work together? We'd love to hear from you.
           </motion.p>
           
           <InfoSection variants={itemVariants}>
             <h3>Our Office</h3>
-            <p>123 Tech Street</p>
-            <p>Digital City, DC 12345</p>
-            <p>United States</p>
+            <p>506, Sumeru Prime</p>
+            <p>Bengaluru, Karnataka</p>
+            <p>India</p>
           </InfoSection>
           
           <InfoSection variants={itemVariants}>
             <h3>Contact Info</h3>
             <p>Email: contact@bytespark.com</p>
-            <p>Phone: (555) 123-4567</p>
+            <p>Phone: +91 9429232528</p>
           </InfoSection>
         </ContactInfo>
 
         <Form 
           onSubmit={handleSubmit}
           variants={containerVariants}
+          id = 'form'
         >
           <Input
             type="text"
             placeholder="Your Name"
-            value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            value={formData.Name}
+            onChange={(e) => setFormData({...formData, Name: e.target.value})}
+            required
+            variants={itemVariants}
+            whileFocus={{ scale: 1.02 }}
+          />
+          <Input
+            type="text"
+            placeholder="Your Number"
+            value={formData.Number}
+            onChange={(e) => setFormData({...formData, Number: e.target.value})}
             required
             variants={itemVariants}
             whileFocus={{ scale: 1.02 }}
@@ -188,8 +244,8 @@ const Contact = () => {
           <Input
             type="email"
             placeholder="Your Email"
-            value={formData.email}
-            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            value={formData.Email}
+            onChange={(e) => setFormData({...formData, Email: e.target.value})}
             required
             variants={itemVariants}
             whileFocus={{ scale: 1.02 }}
@@ -197,16 +253,16 @@ const Contact = () => {
           <Input
             type="text"
             placeholder="Subject"
-            value={formData.subject}
-            onChange={(e) => setFormData({...formData, subject: e.target.value})}
+            value={formData.Subject}
+            onChange={(e) => setFormData({...formData, Subject: e.target.value})}
             required
             variants={itemVariants}
             whileFocus={{ scale: 1.02 }}
           />
           <TextArea
             placeholder="Your Message"
-            value={formData.message}
-            onChange={(e) => setFormData({...formData, message: e.target.value})}
+            value={formData.Message}
+            onChange={(e) => setFormData({...formData, Message: e.target.value})}
             required
             variants={itemVariants}
             whileFocus={{ scale: 1.02 }}
