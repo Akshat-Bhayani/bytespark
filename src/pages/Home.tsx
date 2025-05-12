@@ -10,21 +10,20 @@ const HomeContainer = styled(motion.div)`
 
 const HeroSection = styled.section`
   background: ${props => props.theme.colors.background.gradient};
-  padding: ${props => props.theme.spacing.xxl} ${props => props.theme.spacing.lg};
+  padding: 0 ${props => props.theme.spacing.lg} ${props => props.theme.spacing.xxxl};
   min-height: 80vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-image: url('./img//HomePage.jpg') ;
+  background-image: url('./img//HomePage7.jpg') ;
   background-size: cover;
 `;
 
 const HeroContent = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0;
   color: white;
-  text-align: center;
   position: relative;
   z-index: 1;
 
@@ -317,14 +316,14 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            We create innovative digital solutions that help businesses thrive in the modern world.
+            We create innovative digital solutions that help businesses<br></br> thrive in the modern world.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <CTAButton to="/contact">Get Started</CTAButton>
+            <CTAButton to="/contact">Get in touch</CTAButton>
           </motion.div>
         </HeroContent>
       </HeroSection>

@@ -110,7 +110,7 @@ const Footer = () => {
             <LinkedInIcon />
           </SocialLink>
           <SocialLink 
-            href="https://instagram.com/bytespark" 
+            href="https://instagram.com/thebytespark" 
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ y: -3 }}

@@ -59,7 +59,8 @@ export const theme:any = {
     md: '1.5rem',
     lg: '2rem',
     xl: '3rem',
-    xxl: '5rem'
+    xxl: '5rem',
+    xxxl: '9rem',
   },
   breakpoints: {
     mobile: '@media (max-width: 768px)',
