@@ -6,22 +6,76 @@ const FooterContainer = styled.footer`
   background: ${props => props.theme.colors.primary.main};
   color: ${props => props.theme.colors.text.light};
   padding: ${props => props.theme.spacing.xl} ${props => props.theme.spacing.lg};
-  text-align: center;
 `;
 
 const FooterContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: ${props => props.theme.spacing.xl};
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const FooterSection = styled.div`
   display: flex;
   flex-direction: column;
+  gap: ${props => props.theme.spacing.md};
+`;
+
+const FooterTitle = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: ${props => props.theme.spacing.sm};
+  color: ${props => props.theme.colors.text.light};
+  position: relative;
+  padding-bottom: ${props => props.theme.spacing.sm};
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: ${props => props.theme.colors.primary.light};
+  }
+`;
+
+const FooterLink = styled(motion.a)`
+  color: ${props => props.theme.colors.text.light};
+  text-decoration: none;
+  opacity: 0.8;
+  transition: ${props => props.theme.transitions.default};
+  display: flex;
   align-items: center;
-  gap: ${props => props.theme.spacing.lg};
+  gap: ${props => props.theme.spacing.sm};
+  
+  &:hover {
+    opacity: 1;
+    color: ${props => props.theme.colors.primary.light};
+    transform: translateX(5px);
+  }
+`;
+
+const FooterText = styled.p`
+  color: ${props => props.theme.colors.text.light};
+  opacity: 0.8;
+  line-height: 1.6;
+  margin: 0;
 `;
 
 const SocialLinks = styled.div`
   display: flex;
   gap: ${props => props.theme.spacing.md};
-  margin-bottom: ${props => props.theme.spacing.md};
+  margin-top: ${props => props.theme.spacing.md};
 `;
 
 const SocialLink = styled(motion.a)`
@@ -47,9 +101,18 @@ const SocialLink = styled(motion.a)`
   }
 `;
 
+const BottomBar = styled.div`
+  max-width: 1200px;
+  margin: ${props => props.theme.spacing.xl} auto 0;
+  padding-top: ${props => props.theme.spacing.lg};
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+`;
+
 const Copyright = styled.p`
   opacity: 0.9;
   font-size: 0.9rem;
+  margin: 0;
 `;
 
 // Social media icons as SVG components
@@ -81,46 +144,83 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterContent>
-        <SocialLinks>
-          <SocialLink 
-            href="https://facebook.com/bytespark" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FacebookIcon />
-          </SocialLink>
-          <SocialLink 
-            href="https://twitter.com/bytespark" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <TwitterIcon />
-          </SocialLink>
-          <SocialLink 
-            href="https://linkedin.com/company/bytespark" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <LinkedInIcon />
-          </SocialLink>
-          <SocialLink 
-            href="https://instagram.com/thebytespark" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <InstagramIcon />
-          </SocialLink>
-        </SocialLinks>
-        <Copyright>&copy; 2024 ByteSpark. All rights reserved.</Copyright>
+        <FooterSection>
+          <FooterTitle>About ByteSpark</FooterTitle>
+          <FooterText>
+            We are a team of passionate developers and designers dedicated to creating innovative digital solutions that help businesses grow and succeed in the digital world.
+          </FooterText>
+          <SocialLinks>
+            <SocialLink 
+              href="https://facebook.com/bytespark" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FacebookIcon />
+            </SocialLink>
+            <SocialLink 
+              href="https://twitter.com/bytespark" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <TwitterIcon />
+            </SocialLink>
+            <SocialLink 
+              href="https://linkedin.com/company/bytespark" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <LinkedInIcon />
+            </SocialLink>
+            <SocialLink 
+              href="https://instagram.com/thebytespark" 
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <InstagramIcon />
+            </SocialLink>
+          </SocialLinks>
+        </FooterSection>
+
+        <FooterSection>
+          <FooterTitle>Our Services</FooterTitle>
+          <FooterLink href="#/services/web-development">Web Development</FooterLink>
+          <FooterLink href="#/services/cloud-solutions">Cloud Solutions</FooterLink>
+          <FooterLink href="#/services/uiux-design">UI/UX Design</FooterLink>
+          <FooterLink href="#/services/data-analytics">Data Analytics</FooterLink>
+          <FooterLink href="#/services/seo-marketing">SEO & Digital Marketing</FooterLink>
+        </FooterSection>
+
+        <FooterSection>
+          <FooterTitle>Quick Links</FooterTitle>
+          <FooterLink href="/">Home</FooterLink>
+          <FooterLink href="#/about">About Us</FooterLink>
+          <FooterLink href="#/blog">Blog</FooterLink>
+          <FooterLink href="#/contact">Contact</FooterLink>
+          <FooterLink href="#/careers">Careers</FooterLink>
+        </FooterSection>
+
+        <FooterSection>
+          <FooterTitle>Contact Us</FooterTitle>
+          <FooterText>
+            Email: info@bytespark.com<br />
+            Phone: +91 1234567890<br />
+            Address: 123 Tech Street,<br />
+            Mumbai, Maharashtra 400001
+          </FooterText>
+        </FooterSection>
       </FooterContent>
+
+      <BottomBar>
+        <Copyright>&copy; 2024 ByteSpark. All rights reserved.</Copyright>
+      </BottomBar>
     </FooterContainer>
   );
 };

@@ -3,103 +3,237 @@ import { useParams, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { services } from '../data/services';
-import { StarRating } from '../components/StarRating';
 import { useNavigate } from 'react-router-dom';
+import { DefaultTheme } from 'styled-components';
 
+// Define types for our tech stack
+interface TechItem {
+  name: string;
+  description: string;
+}
+
+type ServiceId = 'web-development' | 'cloud-solutions' | 'uiux-design' | 'data-analytics' | 'seo-marketing';
+
+interface TechStack {
+  'web-development': TechItem[];
+  'cloud-solutions': TechItem[];
+  'uiux-design': TechItem[];
+  'data-analytics': TechItem[];
+  'seo-marketing': TechItem[];
+}
+
+// Styled Components
 const ServiceContainer = styled(motion.div)`
-  padding: ${props => props.theme.spacing.xxl} ${props => props.theme.spacing.lg};
+  padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  background: ${({ theme }) => theme.colors.background.main};
 `;
 
 const ServiceHeader = styled.div`
   text-align: center;
-  margin-bottom: ${props => props.theme.spacing.xl};
-  background: ${props => props.theme.colors.background.gradient};
-  padding: ${props => props.theme.spacing.xl};
-  border-radius: ${props => props.theme.borderRadius.large};
-  color: ${props => props.theme.colors.text.light};
+  margin-bottom: 4rem;
+  position: relative;
+  padding: 3rem;
+  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main}10, ${({ theme }) => theme.colors.primary.main}05);
+  border-radius: 24px;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, ${({ theme }) => theme.colors.primary.main}, ${({ theme }) => theme.colors.primary.main}50);
+  }
 
   h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: ${props => props.theme.spacing.md};
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main}, ${({ theme }) => theme.colors.primary.main}80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   p {
     font-size: 1.2rem;
-    opacity: 0.9;
+    line-height: 1.8;
+    color: ${({ theme }) => theme.colors.text.primary};
     max-width: 800px;
     margin: 0 auto;
+    opacity: 0.9;
   }
 `;
 
 const PriceTag = styled.div`
-  background: ${props => props.theme.colors.background.light};
-  color: ${props => props.theme.colors.primary.main};
-  padding: ${props => props.theme.spacing.md};
-  border-radius: ${props => props.theme.borderRadius.medium};
+  background: ${({ theme }) => theme.colors.background.light};
+  color: ${({ theme }) => theme.colors.primary.main};
+  padding: 1rem 2rem;
+  border-radius: 12px;
   display: inline-block;
   font-size: 1.5rem;
-  font-weight: bold;
-  margin: ${props => props.theme.spacing.lg} 0;
-  box-shadow: ${props => props.theme.shadows.medium};
+  font-weight: 600;
+  margin: 2rem 0;
+  border: 2px solid ${({ theme }) => theme.colors.primary.main}20;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px ${({ theme }) => theme.colors.primary.main}15;
+    border-color: ${({ theme }) => theme.colors.primary.main};
+  }
 `;
 
 const FeaturesSection = styled.div`
-  margin: ${props => props.theme.spacing.xl} 0;
+  margin: 4rem 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 `;
 
 const FeatureCard = styled(motion.div)`
-  background: white;
-  padding: ${props => props.theme.spacing.lg};
-  border-radius: ${props => props.theme.borderRadius.medium};
-  box-shadow: ${props => props.theme.shadows.medium};
+  background: ${({ theme }) => theme.colors.background.light};
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
   display: flex;
-  align-items: center;
-  gap: ${props => props.theme.spacing.md};
-  transition: ${props => props.theme.transitions.default};
+  align-items: flex-start;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: ${({ theme }) => theme.colors.primary.main};
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px ${({ theme }) => theme.colors.primary.main}10;
+    border-color: ${({ theme }) => theme.colors.primary.main};
+
+    &::before {
+      transform: scaleY(1);
+    }
+
+    svg {
+      transform: scale(1.1);
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+  }
 
   svg {
     width: 24px;
     height: 24px;
-    color: ${props => props.theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.primary.main}80;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `;
 
-const ReviewsSection = styled.div`
-  margin-top: ${props => props.theme.spacing.xxl};
-  background: ${props => props.theme.colors.background.light};
-  padding: ${props => props.theme.spacing.xl};
-  border-radius: ${props => props.theme.borderRadius.large};
+const TechStackSection = styled.div`
+  margin: 4rem 0;
+  padding: 3rem;
+  background: ${({ theme }) => theme.colors.background.light};
+  border-radius: 24px;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
+`;
 
-  h2 {
-    text-align: center;
-    margin-bottom: ${props => props.theme.spacing.xl};
-    color: ${props => props.theme.colors.text.secondary};
+const TechStackTitle = styled.h2`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.colors.primary.main};
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: ${({ theme }) => theme.colors.primary.main};
+    border-radius: 2px;
   }
 `;
 
-const ReviewCard = styled(motion.div)`
-  background: white;
-  padding: ${props => props.theme.spacing.xl};
-  border-radius: ${props => props.theme.borderRadius.medium};
-  box-shadow: ${props => props.theme.shadows.medium};
-  margin-bottom: ${props => props.theme.spacing.lg};
-  max-width: 800px;
-  margin: 0 auto;
+const TechGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+`;
 
-  &:not(:last-child) {
-    margin-bottom: ${props => props.theme.spacing.lg};
+const TechItem = styled(motion.div)`
+  background: ${({ theme }) => theme.colors.background.main};
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px ${({ theme }) => theme.colors.primary.main}10;
+    border-color: ${({ theme }) => theme.colors.primary.main};
+  }
+
+  h4 {
+    color: ${({ theme }) => theme.colors.primary.main};
+    margin: 1rem 0 0.5rem;
+    font-size: 1.1rem;
   }
 
   p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: ${props => props.theme.colors.text.muted};
-    margin: ${props => props.theme.spacing.md} 0;
+    color: ${({ theme }) => theme.colors.text.primary};
+    opacity: 0.8;
+    font-size: 0.9rem;
+  }
+`;
+
+const BackButton = styled(motion.button)`
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  color: ${({ theme }) => theme.colors.primary.main};
+  padding: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateX(-5px);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
 `;
 
@@ -109,25 +243,52 @@ const CheckIcon = () => (
   </svg>
 );
 
-const BackButton = styled(motion.button)`
-  background: none;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-  color: ${props => props.theme.colors.primary.main};
-  padding: ${props => props.theme.spacing.md};
-  margin-bottom: ${props => props.theme.spacing.xl};
-`;
-
-const ServiceDetail = () => {
-  const { serviceId } = useParams();
+const ServiceDetail: React.FC = () => {
+  const { serviceId } = useParams<{ serviceId: string }>();
   const service = services.find(s => s.id === serviceId);
   const navigate = useNavigate();
 
   if (!service) {
     return <Navigate to="/services" replace />;
   }
+
+  const techStack: TechStack = {
+    'web-development': [
+      { name: 'React', description: 'Frontend Development' },
+      { name: 'Next.js', description: 'Server-Side Rendering' },
+      { name: 'Node.js', description: 'Backend Development' },
+      { name: 'TypeScript', description: 'Type Safety' }
+    ],
+    'cloud-solutions': [
+      { name: 'AWS', description: 'Cloud Infrastructure' },
+      { name: 'Docker', description: 'Containerization' },
+      { name: 'Kubernetes', description: 'Orchestration' },
+      { name: 'Terraform', description: 'Infrastructure as Code' }
+    ],
+    'uiux-design': [
+      { name: 'Figma', description: 'Design & Prototyping' },
+      { name: 'Adobe XD', description: 'UI Design' },
+      { name: 'Sketch', description: 'Vector Graphics' },
+      { name: 'InVision', description: 'Prototyping' }
+    ],
+    'data-analytics': [
+      { name: 'Python', description: 'Data Processing' },
+      { name: 'TensorFlow', description: 'Machine Learning' },
+      { name: 'Tableau', description: 'Data Visualization' },
+      { name: 'Power BI', description: 'Business Intelligence' }
+    ],
+    'seo-marketing': [
+      { name: 'Google Analytics', description: 'Web Analytics' },
+      { name: 'SEMrush', description: 'SEO Tools' },
+      { name: 'Mailchimp', description: 'Email Marketing' },
+      { name: 'Hootsuite', description: 'Social Media Management' }
+    ]
+  };
+
+  // Type guard to check if serviceId is a valid key
+  const isValidServiceId = (id: string): id is ServiceId => {
+    return id in techStack;
+  };
 
   return (
     <ServiceContainer
@@ -141,7 +302,10 @@ const ServiceDetail = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
       >
-        ← Back
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Services
       </BackButton>
 
       <ServiceHeader>
@@ -149,7 +313,6 @@ const ServiceDetail = () => {
         <p>{service.description}</p>
         <PriceTag>
           Starting From ₹{service.price.start}
-          {service.price.end && ` - ₹${service.price.end}`}
         </PriceTag>
       </ServiceHeader>
 
@@ -160,10 +323,6 @@ const ServiceDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            whileHover={{ 
-              y: -5, 
-              boxShadow: '0 8px 30px rgba(37, 99, 235, 0.15)' 
-            }}
           >
             <CheckIcon />
             <span>{feature}</span>
@@ -171,27 +330,22 @@ const ServiceDetail = () => {
         ))}
       </FeaturesSection>
 
-      <ReviewsSection>
-        <h2>Customer Reviews</h2>
-        {service.reviews && service.reviews.length > 0 ? (
-          service.reviews.map(review => (
-            <ReviewCard
-              key={review.id}
+      <TechStackSection>
+        <TechStackTitle>Technologies We Use</TechStackTitle>
+        <TechGrid>
+          {serviceId && isValidServiceId(serviceId) && techStack[serviceId].map((tech: TechItem, index: number) => (
+            <TechItem
+              key={tech.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
-              <StarRating rating={review.rating} />
-              <p>{review.comment}</p>
-              <small>
-                {review.author} - {new Date(review.date).toLocaleDateString()}
-              </small>
-            </ReviewCard>
-          ))
-        ) : (
-          <p>No reviews yet.</p>
-        )}
-      </ReviewsSection>
+              <h4>{tech.name}</h4>
+              <p>{tech.description}</p>
+            </TechItem>
+          ))}
+        </TechGrid>
+      </TechStackSection>
     </ServiceContainer>
   );
 };

@@ -1,136 +1,336 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogs';
 
+// Define animations at the top of the file
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const floatAnimation = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+`;
+
 const HomeContainer = styled(motion.div)`
   overflow: hidden;
+  background: ${({ theme }) => theme.colors.background.main};
 `;
 
 const HeroSection = styled.section`
-  background: ${props => props.theme.colors.background.gradient};
-  padding: 0 ${props => props.theme.spacing.lg} ${props => props.theme.spacing.xxxl};
-  min-height: 80vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
-  overflow: hidden;
-  background-image: url('./img//HomePage7.jpg') ;
-  background-size: cover;
+  padding: 2rem;
+  background: linear-gradient(
+    180deg,
+    ${({ theme }) => theme.colors.background.main} 0%,
+    ${({ theme }) => theme.colors.background.light} 100%
+  );
 `;
 
 const HeroContent = styled.div`
   max-width: 1200px;
-  margin: 0;
-  color: white;
+  margin: 0 auto;
+  text-align: center;
   position: relative;
   z-index: 1;
+  padding: 2rem;
 
   h1 {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
-    margin-bottom: ${props => props.theme.spacing.lg};
+    margin-bottom: 1.5rem;
     line-height: 1.2;
+    color: ${({ theme }) => theme.colors.primary.main};
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: ${({ theme }) => theme.colors.primary.main};
+      border-radius: 2px;
+    }
   }
 
   p {
     font-size: clamp(1.1rem, 3vw, 1.5rem);
     max-width: 800px;
-    margin: 0 auto ${props => props.theme.spacing.xl};
+    margin: 0 auto 2rem;
+    color: ${({ theme }) => theme.colors.text.primary};
     opacity: 0.9;
+    line-height: 1.6;
   }
 `;
 
 const CTAButton = styled(Link)`
   display: inline-block;
-  background: white;
-  color: ${props => props.theme.colors.primary.main};
-  padding: ${props => props.theme.spacing.md} ${props => props.theme.spacing.xl};
-  border-radius: ${props => props.theme.borderRadius.full};
+  background: ${({ theme }) => theme.colors.primary.main};
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  transition: ${props => props.theme.transitions.default};
-  box-shadow: ${props => props.theme.shadows.medium};
+  transition: all 0.3s ease;
+  border: 2px solid ${({ theme }) => theme.colors.primary.main};
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: ${props => props.theme.shadows.large};
+    background: transparent;
+    color: ${({ theme }) => theme.colors.primary.main};
+  }
+`;
+
+const Section = styled.section`
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  background: ${({ theme }) => theme.colors.background.main};
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: ${({ theme }) => theme.colors.primary.main};
+    border-radius: 2px;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: ${({ theme }) => theme.colors.primary.main};
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: ${({ theme }) => theme.colors.primary.main};
+    border-radius: 2px;
+  }
+`;
+
+const ServiceIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  color: ${({ theme }) => theme.colors.primary.main}80;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const ServiceTitle = styled.h3`
+  color: ${({ theme }) => theme.colors.primary.main};
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: ${({ theme }) => theme.colors.primary.main};
+    transition: width 0.3s ease;
+  }
+`;
+
+const ServiceDescription = styled.p`
+  color: ${({ theme }) => theme.colors.text.primary};
+  opacity: 0.8;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+`;
+
+const ServiceCard = styled(motion(Link))`
+  background: ${({ theme }) => theme.colors.background.light};
+  padding: 3rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.text.primary};
+  transition: all 0.3s ease;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: ${({ theme }) => theme.colors.primary.main};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    box-shadow: 0 20px 40px ${({ theme }) => theme.colors.primary.main}10;
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    ${ServiceIcon} {
+      transform: scale(1.1);
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+
+    ${ServiceTitle}::after {
+      width: 100%;
+    }
+  }
+`;
+
+const ServicesPreview = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 `;
 
 const SecondaryButton = styled(Link)`
   display: inline-block;
-  background: transparent;
-  color: ${props => props.theme.colors.primary.main};
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.lg};
-  border-radius: ${props => props.theme.borderRadius.full};
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
-  transition: ${props => props.theme.transitions.default};
-  border: 2px solid ${props => props.theme.colors.primary.main};
+  transition: all 0.3s ease;
+  border: 2px solid ${({ theme }) => theme.colors.primary.main};
+  color: ${({ theme }) => theme.colors.primary.main};
+  margin-top: auto;
+  align-self: flex-start;
 
   &:hover {
-    background: ${props => props.theme.colors.primary.main};
+    background: ${({ theme }) => theme.colors.primary.main};
     color: white;
     transform: translateY(-2px);
   }
 `;
 
-const Section = styled.section`
-  padding: ${props => props.theme.spacing.xxl} ${props => props.theme.spacing.lg};
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: clamp(2rem, 5vw, 3rem);
-  color: ${props => props.theme.colors.text.secondary};
-  text-align: center;
-  margin-bottom: ${props => props.theme.spacing.xl};
-`;
-
 const AboutPreview = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${props => props.theme.spacing.xl};
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
   align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 `;
 
 const AboutContent = styled.div`
   p {
-    color: ${props => props.theme.colors.text.muted};
+    color: ${({ theme }) => theme.colors.text.primary};
     line-height: 1.8;
     font-size: 1.1rem;
-    margin-bottom: ${props => props.theme.spacing.lg};
+    margin-bottom: 2rem;
   }
 `;
 
 const AboutImage = styled.img`
   width: 100%;
   height: auto;
-  border-radius: ${props => props.theme.borderRadius.large};
-  box-shadow: ${props => props.theme.shadows.glow};
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 `;
 
 const BlogGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
-  margin-bottom: ${props => props.theme.spacing.xl};
+  gap: 2rem;
+  margin-bottom: 2rem;
 `;
 
-const BlogCard = styled(motion.article)`
-  background: white;
-  border-radius: ${props => props.theme.borderRadius.large};
+const BlogCard = styled(motion(Link))`
+  background: ${({ theme }) => theme.colors.background.light};
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: ${props => props.theme.shadows.medium};
-  transition: ${props => props.theme.transitions.default};
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: ${props => props.theme.shadows.large};
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    box-shadow: 0 10px 30px ${({ theme }) => theme.colors.primary.main}10;
   }
 `;
 
@@ -141,101 +341,33 @@ const BlogImage = styled.img`
 `;
 
 const BlogContent = styled.div`
-  padding: ${props => props.theme.spacing.lg};
+  padding: 1.5rem;
 
   h3 {
-    color: ${props => props.theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.primary.main};
     font-size: 1.3rem;
-    margin-bottom: ${props => props.theme.spacing.sm};
+    margin-bottom: 0.5rem;
   }
 
   p {
-    color: ${props => props.theme.colors.text.muted};
-    margin-bottom: ${props => props.theme.spacing.md};
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    color: ${({ theme }) => theme.colors.text.primary};
+    opacity: 0.8;
+    line-height: 1.6;
   }
 `;
 
 const ViewAllButton = styled(Link)`
   display: block;
   text-align: center;
-  color: ${props => props.theme.colors.primary.main};
+  color: ${({ theme }) => theme.colors.primary.main};
   text-decoration: none;
   font-weight: 600;
-  padding: ${props => props.theme.spacing.md};
-  transition: ${props => props.theme.transitions.default};
+  padding: 1rem;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: ${props => props.theme.colors.primary.dark};
+    color: ${({ theme }) => theme.colors.primary.dark};
   }
-`;
-
-const ServicesPreview = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: ${props => props.theme.spacing.lg};
-`;
-
-const ServiceCard = styled(motion.div)`
-  background: white;
-  padding: ${props => props.theme.spacing.xl};
-  border-radius: ${props => props.theme.borderRadius.large};
-  box-shadow: ${props => props.theme.shadows.medium};
-  text-align: center;
-  transition: ${props => props.theme.transitions.default};
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: ${props => props.theme.colors.background.gradient};
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${props => props.theme.shadows.large};
-
-    &::before {
-      transform: scaleX(1);
-    }
-  }
-`;
-
-const ServiceIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  margin: 0 auto ${props => props.theme.spacing.md};
-  color: ${props => props.theme.colors.primary.main};
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const ServiceTitle = styled.h3`
-  color: ${props => props.theme.colors.text.secondary};
-  font-size: 1.3rem;
-  margin-bottom: ${props => props.theme.spacing.sm};
-`;
-
-const ServiceDescription = styled.p`
-  color: ${props => props.theme.colors.text.muted};
-  line-height: 1.6;
-  margin-bottom: ${props => props.theme.spacing.md};
 `;
 
 const WebIcon = () => (
@@ -273,25 +405,25 @@ const Home = () => {
     {
       icon: <WebIcon />,
       title: "Web Development",
-      description: "Custom websites and web applications tailored to your needs",
+      description: "Custom websites and web applications built with modern technologies like React, Next.js, and Node.js. We create responsive, fast, and user-friendly digital experiences.",
       link: "/services/web-development"
     },
     {
       icon: <CloudIcon />,
       title: "Cloud Solutions",
-      description: "Scalable and secure cloud infrastructure services",
+      description: "Scalable cloud infrastructure and deployment solutions using AWS, Azure, and Google Cloud. We help businesses optimize their cloud presence and reduce costs.",
       link: "/services/cloud-solutions"
     },
     {
       icon: <DesignIcon />,
       title: "UI/UX Design",
-      description: "User-centered design that delivers exceptional experiences",
+      description: "User-centered design solutions that focus on creating intuitive and engaging user experiences. We combine aesthetics with functionality to deliver exceptional designs.",
       link: "/services/uiux-design"
     },
     {
       icon: <AnalyticsIcon />,
       title: "Data Analytics",
-      description: "Transform your data into actionable insights",
+      description: "Transform your data into actionable insights with our analytics solutions. We help businesses make data-driven decisions and optimize their operations.",
       link: "/services/data-analytics"
     }
   ];
@@ -316,7 +448,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            We create innovative digital solutions that help businesses<br></br> thrive in the modern world.
+            We create innovative digital solutions that help businesses thrive in the modern world.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -341,11 +473,9 @@ const Home = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <div>
-                <ServiceIcon>{service.icon}</ServiceIcon>
-                <ServiceTitle>{service.title}</ServiceTitle>
-                <ServiceDescription>{service.description}</ServiceDescription>
-              </div>
+              <ServiceIcon>{service.icon}</ServiceIcon>
+              <ServiceTitle>{service.title}</ServiceTitle>
+              <ServiceDescription>{service.description}</ServiceDescription>
               <SecondaryButton to={service.link}>Learn More</SecondaryButton>
             </ServiceCard>
           ))}
@@ -361,9 +491,10 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              ByteSpark is a leading digital solutions provider, dedicated to helping businesses 
-              achieve their digital transformation goals. With our expert team and innovative 
-              approach, we deliver cutting-edge solutions that drive growth and success.
+              ByteSpark is a fresh and innovative digital solutions provider, specializing in creating 
+              modern, responsive websites. Though we're new to the scene, our team brings together 
+              expertise and creativity to deliver exceptional results. We're passionate about helping 
+              businesses establish their digital presence with clean, user-friendly designs.
             </motion.p>
             <motion.div>
               <SecondaryButton to="/about">Learn More</SecondaryButton>
@@ -385,7 +516,6 @@ const Home = () => {
           {recentPosts.map((post, index) => (
             <BlogCard
               key={post.id}
-              as={Link}
               to={`/blog/${post.id}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

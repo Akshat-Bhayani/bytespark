@@ -6,8 +6,7 @@ export const services: Service[] = [
     title: 'Custom Website Development',
     description: 'Tailored web solutions that drive growth and engagement',
     price: {
-      start: 2999,
-      end: 9999
+      start: 2999
     },
     features: [
       'Responsive Design',
@@ -32,8 +31,7 @@ export const services: Service[] = [
     title: 'Smart Cloud Solutions',
     description: 'Scalable cloud infrastructure and migration services',
     price: {
-      start: 1999,
-      end: 7999
+      start: 4999
     },
     features: [
       'Cloud Migration',
@@ -84,8 +82,7 @@ export const services: Service[] = [
     title: 'User Centered UI/UX Design',
     description: 'User-centered design solutions for digital products',
     price: {
-      start: 1499,
-      end: 5999
+      start: 1499
     },
     features: [
       'User Research',
@@ -110,8 +107,7 @@ export const services: Service[] = [
     title: 'Advanced Data Analytics',
     description: 'Transform your data into actionable insights',
     price: {
-      start: 2499,
-      end: 8999
+      start: 2999
     },
     features: [
       'Data Visualization',
@@ -128,6 +124,31 @@ export const services: Service[] = [
         rating: 5,
         comment: 'Their analytics solutions helped us make data-driven decisions effectively.',
         date: '2024-02-01'
+      }
+    ]
+  },
+  {
+    id: 'seo-marketing',
+    title: 'SEO & Digital Marketing',
+    description: 'Comprehensive digital marketing and search engine optimization strategies',
+    price: {
+      start: 1499
+    },
+    features: [
+      'Search Engine Optimization',
+      'Social Media Marketing',
+      'Content Marketing',
+      'PPC Campaigns',
+      'Email Marketing',
+      'Analytics & Reporting'
+    ],
+    reviews: [
+      {
+        id: '6',
+        author: 'Lisa Anderson',
+        rating: 5,
+        comment: 'Their digital marketing strategies significantly improved our online presence and lead generation.',
+        date: '2024-02-20'
       }
     ]
   }
