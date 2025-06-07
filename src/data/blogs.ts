@@ -3,9 +3,9 @@ import { BlogPost } from '../types';
 export const blogPosts: BlogPost[] = [
   {
     id: 'react-18-features',
-    title: "Getting Started with React 18",
-    description: "Learn about the latest features in React 18 and how to implement them.",
-    content: `React 18 brings exciting new features that improve performance and user experience. 
+    title: "Getting Started with React 19",
+    description: "Learn about the latest features in React 19 and how to implement them.",
+    content: `React 19 brings exciting new features that improve performance and user experience. 
     In this article, we'll explore Concurrent Rendering, Automatic Batching, and new Hooks...`,
     image: "./img/react.jpg",
     tags: ["React", "JavaScript"],

@@ -210,10 +210,10 @@ const Footer = () => {
         <FooterSection>
           <FooterTitle>Contact Us</FooterTitle>
           <FooterText>
-            Email: info@bytespark.com<br />
-            Phone: +91 1234567890<br />
-            Address: 123 Tech Street,<br />
-            Mumbai, Maharashtra 400001
+            Email: contact@bytespark.com<br />
+            Phone: +91 9429232528<br />
+            Address: 506, Sumeru Prime,<br />
+            Bengaluru, Karnataka 
           </FooterText>
         </FooterSection>
       </FooterContent>

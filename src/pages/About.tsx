@@ -456,26 +456,26 @@ const About = () => {
             viewport={{ once: true }}
           >
             <img src="/team/developer.jpg" alt="Developer" />
-            <h3>John Doe</h3>
-            <p>Lead Developer</p>
+            <h3>Prasham Shah</h3>
+            <p>Developer</p>
           </TeamMember>
           <TeamMember
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <img src="/team/designer.jpg" alt="Designer" />
-            <h3>Jane Smith</h3>
-            <p>UI/UX Designer</p>
+            <img src="/team/designer.jpg" alt="Developer" />
+            <h3>Akshat Bhayani</h3>
+            <p>Developer</p>
           </TeamMember>
           <TeamMember
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <img src="/team/manager.jpg" alt="Project Manager" />
-            <h3>Mike Johnson</h3>
-            <p>Project Manager</p>
+            <img src="/team/manager.jpg" alt="Lead QA" />
+            <h3>Devam Shanischara</h3>
+            <p>Lead QA</p>
           </TeamMember>
         </TeamGrid>
       </TeamSection>
