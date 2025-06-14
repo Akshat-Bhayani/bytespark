@@ -3,6 +3,19 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faJs, 
+  faPython, 
+  faJava, 
+  faAws, 
+  faFigma, 
+  faReact,
+  faHtml5,
+  faCss3,
+  faNodeJs,
+  faDocker
+} from '@fortawesome/free-brands-svg-icons';
 
 // Define animations at the top of the file
 const gradientAnimation = keyframes`
@@ -44,6 +57,76 @@ const pulseAnimation = keyframes`
   }
 `;
 
+const floatIconAnimation = keyframes`
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+`;
+
+const glowAnimation = keyframes`
+  0% {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  }
+`;
+
+const floatBubbleAnimation = keyframes`
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+`;
+
+const pulseCircleAnimation = keyframes`
+  0% {
+    transform: scale(0.8);
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.15;
+  }
+`;
+
+const rotateGradientAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const shimmerAnimation = keyframes`
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+`;
+
 const HomeContainer = styled(motion.div)`
   overflow: hidden;
   background: ${({ theme }) => theme.colors.background.main};
@@ -57,10 +140,54 @@ const HeroSection = styled.section`
   position: relative;
   padding: 2rem;
   background: linear-gradient(
-    180deg,
-    ${({ theme }) => theme.colors.background.main} 0%,
-    ${({ theme }) => theme.colors.background.light} 100%
+    135deg,
+    #ffffff 0%,
+    #f8f9fa 50%,
+    #f0f2f5 100%
   );
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, 
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 50%),
+      radial-gradient(circle at 80% 80%, 
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 50%);
+    animation: ${pulseAnimation} 8s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    background: 
+      linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 100%
+      ),
+      linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 100%
+      );
+    animation: ${gradientAnimation} 15s ease infinite;
+    z-index: 0;
+  }
 `;
 
 const HeroContent = styled.div`
@@ -78,18 +205,6 @@ const HeroContent = styled.div`
     color: ${({ theme }) => theme.colors.primary.main};
     position: relative;
     display: inline-block;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: ${({ theme }) => theme.colors.primary.main};
-      border-radius: 2px;
-    }
   }
 
   p {
@@ -150,17 +265,6 @@ const SectionTitle = styled.h2`
   display: inline-block;
   left: 50%;
   transform: translateX(-50%);
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: ${({ theme }) => theme.colors.primary.main};
-    border-radius: 2px;
-  }
 `;
 
 const ServiceIcon = styled.div`
@@ -242,10 +346,6 @@ const ServiceCard = styled(motion(Link))`
     ${ServiceIcon} {
       transform: scale(1.1);
       color: ${({ theme }) => theme.colors.primary.main};
-    }
-
-    ${ServiceTitle}::after {
-      width: 100%;
     }
   }
 `;
@@ -370,58 +470,123 @@ const ViewAllButton = styled(Link)`
   }
 `;
 
-const WebIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/>
-    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-  </svg>
-);
+const TechIcon = styled.div<{ delay: number; size: number; top: number; left: number; color: string }>`
+  position: absolute;
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  opacity: 0.9;
+  animation: ${floatIconAnimation} 6s ease-in-out infinite, ${glowAnimation} 3s ease-in-out infinite;
+  animation-delay: ${props => props.delay}s;
+  z-index: 0;
+  transition: all 0.3s ease;
+  color: ${props => props.color};
+  filter: drop-shadow(0 0 10px ${props => props.color}40);
 
-const CloudIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>
-  </svg>
-);
+  &:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 15px ${props => props.color}80);
+  }
 
-const DesignIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-    <path d="M2 2l7.586 7.586"/>
-    <circle cx="11" cy="11" r="2"/>
-  </svg>
-);
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`;
 
-const AnalyticsIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 21H3V3M21 9L13 17l-4-4-6 6"/>
-  </svg>
-);
+const AnimatedBubble = styled.div<{ size: number; left: number; delay: number; duration: number }>`
+  position: absolute;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  left: ${props => props.left}%;
+  bottom: -100px;
+  background: ${({ theme }) => theme.colors.primary.main}20;
+  border-radius: 50%;
+  animation: ${floatBubbleAnimation} ${props => props.duration}s ease-in-out infinite;
+  animation-delay: ${props => props.delay}s;
+  z-index: 0;
+  backdrop-filter: blur(5px);
+`;
+
+const AnimatedCircle = styled.div<{ size: number; top: number; left: number; delay: number }>`
+  position: absolute;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  background: ${({ theme }) => theme.colors.primary.main}15;
+  border-radius: 50%;
+  animation: ${pulseCircleAnimation} 8s ease-in-out infinite;
+  animation-delay: ${props => props.delay}s;
+  z-index: 0;
+  backdrop-filter: blur(5px);
+`;
+
+const RotatingGradient = styled.div`
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  background: conic-gradient(
+    from 0deg,
+    ${({ theme }) => theme.colors.primary.main}15 0%,
+    transparent 20%,
+    ${({ theme }) => theme.colors.primary.main}15 40%,
+    transparent 60%,
+    ${({ theme }) => theme.colors.primary.main}15 80%,
+    transparent 100%
+  );
+  animation: ${rotateGradientAnimation} 20s linear infinite;
+  z-index: 0;
+`;
+
+const ShimmerEffect = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    ${({ theme }) => theme.colors.primary.main}10 25%,
+    ${({ theme }) => theme.colors.primary.main}15 50%,
+    ${({ theme }) => theme.colors.primary.main}10 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: ${shimmerAnimation} 8s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+`;
 
 const Home = () => {
   const recentPosts = blogPosts.slice(0, 3);
   
   const services = [
     {
-      icon: <WebIcon />,
+      icon: <FontAwesomeIcon icon={faJs} />,
       title: "Web Development",
       description: "Custom websites and web applications built with modern technologies like React, Next.js, and Node.js. We create responsive, fast, and user-friendly digital experiences.",
       link: "/services/web-development"
     },
     {
-      icon: <CloudIcon />,
+      icon: <FontAwesomeIcon icon={faPython} />,
       title: "Cloud Solutions",
       description: "Scalable cloud infrastructure and deployment solutions using AWS, Azure, and Google Cloud. We help businesses optimize their cloud presence and reduce costs.",
       link: "/services/cloud-solutions"
     },
     {
-      icon: <DesignIcon />,
+      icon: <FontAwesomeIcon icon={faHtml5} />,
       title: "UI/UX Design",
       description: "User-centered design solutions that focus on creating intuitive and engaging user experiences. We combine aesthetics with functionality to deliver exceptional designs.",
       link: "/services/uiux-design"
     },
     {
-      icon: <AnalyticsIcon />,
+      icon: <FontAwesomeIcon icon={faDocker} />,
       title: "Data Analytics",
       description: "Transform your data into actionable insights with our analytics solutions. We help businesses make data-driven decisions and optimize their operations.",
       link: "/services/data-analytics"
@@ -435,6 +600,60 @@ const Home = () => {
       transition={{ duration: 0.5 }}
     >
       <HeroSection>
+        <RotatingGradient />
+        <ShimmerEffect />
+        
+        {/* Animated Circles */}
+        <AnimatedCircle size={300} top={20} left={10} delay={0} />
+        <AnimatedCircle size={200} top={60} left={80} delay={2} />
+        <AnimatedCircle size={250} top={40} left={50} delay={4} />
+        <AnimatedCircle size={180} top={30} left={70} delay={6} />
+        
+        {/* Animated Bubbles */}
+        <AnimatedBubble size={100} left={10} delay={0} duration={15} />
+        <AnimatedBubble size={150} left={30} delay={3} duration={18} />
+        <AnimatedBubble size={80} left={50} delay={6} duration={20} />
+        <AnimatedBubble size={120} left={70} delay={9} duration={17} />
+        <AnimatedBubble size={90} left={90} delay={12} duration={19} />
+
+        {/* Random but evenly distributed icons */}
+        <TechIcon delay={0} size={35} top={12} left={8} color="#f7df1e">
+          <FontAwesomeIcon icon={faJs} />
+        </TechIcon>
+        {/* <TechIcon delay={1} size={40} top={28} left={22} color="#3776ab">
+          <FontAwesomeIcon icon={faPython} />
+        </TechIcon> */}
+        <TechIcon delay={2} size={45} top={15} left={45} color="#00599c">
+          <FontAwesomeIcon icon={faHtml5} />
+        </TechIcon>
+        {/* <TechIcon delay={3} size={40} top={32} left={68} color="#5382a5">
+          <FontAwesomeIcon icon={faJava} />
+        </TechIcon> */}
+        <TechIcon delay={4} size={45} top={18} left={82} color="#ff9900">
+          <FontAwesomeIcon icon={faAws} />
+        </TechIcon>
+        <TechIcon delay={5} size={40} top={42} left={5} color="#ff6b6b">
+          <FontAwesomeIcon icon={faFigma} />
+        </TechIcon>
+        <TechIcon delay={6} size={35} top={58} left={35} color="#61dafb">
+          <FontAwesomeIcon icon={faReact} />
+        </TechIcon>
+        <TechIcon delay={7} size={40} top={45} left={85} color="#4caf50">
+          <FontAwesomeIcon icon={faNodeJs} />
+        </TechIcon>
+        <TechIcon delay={8} size={35} top={88} left={10} color="#264de4">
+          <FontAwesomeIcon icon={faCss3} />
+        </TechIcon>
+        <TechIcon delay={9} size={40} top={62} left={75} color="#2496ed">
+          <FontAwesomeIcon icon={faDocker} />
+        </TechIcon>
+        <TechIcon delay={10} size={38} top={85} left={42} color="#f7df1e">
+          <FontAwesomeIcon icon={faJs} />
+        </TechIcon>
+        <TechIcon delay={11} size={42} top={78} left={88} color="#3776ab">
+          <FontAwesomeIcon icon={faPython} />
+        </TechIcon>
+
         <HeroContent>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -466,7 +685,6 @@ const Home = () => {
           {services.map((service, index) => (
             <ServiceCard
               key={service.title}
-              as={Link}
               to={service.link}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
