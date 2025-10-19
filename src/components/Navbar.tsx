@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Nav = styled.nav`
@@ -23,10 +23,29 @@ const NavContainer = styled.div`
 `;
 
 const Logo = styled.a`
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 800;
   color: ${props => props.theme.colors.primary.main};
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &::before {
+    content: "⚡";
+    font-size: 1.5rem;
+    animation: spark 2s ease-in-out infinite;
+  }
+
+  @keyframes spark {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+  }
 `;
 
 const NavLinks = styled(motion.div)`
@@ -56,32 +75,38 @@ const MobileNavLinks = styled(motion.div)`
   }
 `;
 
-const NavLink = styled.a<{ $isActive?: boolean }>`
+const NavLink = styled(Link)<{ $isActive?: boolean }>`
   text-decoration: none;
   color: ${props => props.$isActive ? props.theme.colors.primary.main : props.theme.colors.text.primary};
   font-weight: ${props => props.$isActive ? '600' : '400'};
   position: relative;
   transition: ${props => props.theme.transitions.default};
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
 
   &::after {
     content: '';
     position: absolute;
     bottom: -4px;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: ${props => props.$isActive ? '80%' : '0%'};
     height: 2px;
     background: ${props => props.theme.colors.primary.main};
-    transform: scaleX(${props => props.$isActive ? 1 : 0});
-    transform-origin: center;
-    transition: transform 0.3s ease;
+    transition: width 0.3s ease;
   }
 
-  &:hover::after {
-    transform: scaleX(1);
+  &:hover {
+    color: ${props => props.theme.colors.primary.main};
+    background: ${props => props.theme.colors.primary.main}10;
+    
+    &::after {
+      width: 80%;
+    }
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     width: 100%;
     text-align: center;
     border-radius: ${props => props.theme.borderRadius.medium};
@@ -149,11 +174,13 @@ const mobileNavVariants = {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const hash = location.hash;
   const pathname = location.pathname;
 
-  const isActiveHash = (target: string) => hash.startsWith(`#${target}`);
-  const isHome = pathname === '/' && !hash;
+  const isActive = (path: string) => {
+    if (path === '/' && pathname === '/') return true;
+    if (path !== '/' && pathname.startsWith(path)) return true;
+    return false;
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -164,11 +191,11 @@ const Navbar = () => {
         <Logo href="/">ByteSpark</Logo>
 
         <NavLinks>
-          <NavLink href="/" $isActive={isHome}>Home</NavLink>
-          <NavLink href="#/services" $isActive={isActiveHash('/services')}>Services</NavLink>
-          <NavLink href="#/about" $isActive={isActiveHash('/about')}>About</NavLink>
-          <NavLink href="#/blog" $isActive={isActiveHash('/blog')}>Blog</NavLink>
-          <NavLink href="#/contact" $isActive={isActiveHash('/contact')}>Contact</NavLink>
+          <NavLink to="/" $isActive={isActive('/')}>Home</NavLink>
+          <NavLink to="/services" $isActive={isActive('/services')}>Services</NavLink>
+          <NavLink to="/about" $isActive={isActive('/about')}>About</NavLink>
+          <NavLink to="/blog" $isActive={isActive('/blog')}>Blog</NavLink>
+          <NavLink to="/contact" $isActive={isActive('/contact')}>Contact</NavLink>
         </NavLinks>
 
         <HamburgerButton 
@@ -189,11 +216,11 @@ const Navbar = () => {
               exit="closed"
               variants={mobileNavVariants}
             >
-              <NavLink href="/" $isActive={isHome} onClick={closeMenu}>Home</NavLink>
-              <NavLink href="#/services" $isActive={isActiveHash('/services')} onClick={closeMenu}>Services</NavLink>
-              <NavLink href="#/about" $isActive={isActiveHash('/about')} onClick={closeMenu}>About</NavLink>
-              <NavLink href="#/blog" $isActive={isActiveHash('/blog')} onClick={closeMenu}>Blog</NavLink>
-              <NavLink href="#/contact" $isActive={isActiveHash('/contact')} onClick={closeMenu}>Contact</NavLink>
+              <NavLink to="/" $isActive={isActive('/')} onClick={closeMenu}>Home</NavLink>
+              <NavLink to="/services" $isActive={isActive('/services')} onClick={closeMenu}>Services</NavLink>
+              <NavLink to="/about" $isActive={isActive('/about')} onClick={closeMenu}>About</NavLink>
+              <NavLink to="/blog" $isActive={isActive('/blog')} onClick={closeMenu}>Blog</NavLink>
+              <NavLink to="/contact" $isActive={isActive('/contact')} onClick={closeMenu}>Contact</NavLink>
             </MobileNavLinks>
           )}
         </AnimatePresence>

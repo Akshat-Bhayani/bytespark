@@ -42,6 +42,15 @@ const floatAnimation = keyframes`
   }
 `;
 
+const carouselAnimation = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+`;
+
 const pulseAnimation = keyframes`
   0% {
     transform: scale(1);
@@ -280,6 +289,38 @@ const ServiceIcon = styled.div`
   }
 `;
 
+const ServiceImage = styled.div`
+  width: 100%;
+  height: 300px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.primary.main}20 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+`;
+
 const ServiceTitle = styled.h3`
   color: ${({ theme }) => theme.colors.primary.main};
   font-size: 1.5rem;
@@ -308,18 +349,19 @@ const ServiceDescription = styled.p`
 `;
 
 const ServiceCard = styled(motion(Link))`
-  background: ${({ theme }) => theme.colors.background.light};
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 16px;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.text.primary};
   transition: all 0.3s ease;
-  border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
+  width: 300px;
+  min-height: 250px;
 
   &::before {
     content: '';
@@ -347,20 +389,62 @@ const ServiceCard = styled(motion(Link))`
       transform: scale(1.1);
       color: ${({ theme }) => theme.colors.primary.main};
     }
+
+    ${ServiceImage} {
+      img {
+        transform: scale(1.05);
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 280px;
+    min-height: 320px;
+    padding: 1.5rem;
   }
 `;
 
 const ServicesPreview = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
-  margin-bottom: 2rem;
-  max-width: 1000px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, ${({ theme }) => theme.colors.background.main}, transparent);
+  }
+  
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, ${({ theme }) => theme.colors.background.main}, transparent);
+  }
+`;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+const CarouselTrack = styled.div`
+  display: flex;
+  animation: ${carouselAnimation} 20s linear infinite;
+  width: calc(200% + 6rem); /* Double width to accommodate duplicated items */
+  gap: 3rem;
+  
+  &:hover {
+    animation-play-state: paused;
   }
 `;
 
@@ -571,25 +655,50 @@ const Home = () => {
       icon: <FontAwesomeIcon icon={faJs} />,
       title: "Web Development",
       description: "Custom websites and web applications built with modern technologies like React, Next.js, and Node.js. We create responsive, fast, and user-friendly digital experiences.",
-      link: "/services/web-development"
+      link: "/services/web-development",
+      image: "/img/react.jpg"
     },
     {
       icon: <FontAwesomeIcon icon={faPython} />,
       title: "Cloud Solutions",
       description: "Scalable cloud infrastructure and deployment solutions using AWS, Azure, and Google Cloud. We help businesses optimize their cloud presence and reduce costs.",
-      link: "/services/cloud-solutions"
+      link: "/services/cloud-solutions",
+      image: "/img/cloud.jpg"
     },
     {
       icon: <FontAwesomeIcon icon={faHtml5} />,
       title: "UI/UX Design",
       description: "User-centered design solutions that focus on creating intuitive and engaging user experiences. We combine aesthetics with functionality to deliver exceptional designs.",
-      link: "/services/uiux-design"
+      link: "/services/uiux-design",
+      image: "/img/uiux.png"
     },
     {
       icon: <FontAwesomeIcon icon={faDocker} />,
       title: "Data Analytics",
       description: "Transform your data into actionable insights with our analytics solutions. We help businesses make data-driven decisions and optimize their operations.",
-      link: "/services/data-analytics"
+      link: "/services/data-analytics",
+      image: "/img/typescript.jpg"
+    },
+    {
+      icon: <FontAwesomeIcon icon={faAws} />,
+      title: "DevOps Solutions",
+      description: "Streamline your development workflow with automated CI/CD pipelines, infrastructure as code, and cloud deployment strategies.",
+      link: "/services/devops",
+      image: "/img/cloud.jpg"
+    },
+    {
+      icon: <FontAwesomeIcon icon={faFigma} />,
+      title: "Digital Marketing",
+      description: "Comprehensive digital marketing strategies including SEO, social media management, and performance tracking to grow your business.",
+      link: "/services/digital-marketing",
+      image: "/img/HomePage2.jpg"
+    },
+    {
+      icon: <FontAwesomeIcon icon={faNodeJs} />,
+      title: "API Development",
+      description: "Robust and scalable API solutions for seamless integration between systems, mobile apps, and third-party services.",
+      link: "/services/api-development",
+      image: "/img/typescript.jpg"
     }
   ];
 
@@ -682,21 +791,40 @@ const Home = () => {
       <Section>
         <SectionTitle>Our Services</SectionTitle>
         <ServicesPreview>
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.title}
-              to={service.link}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <ServiceIcon>{service.icon}</ServiceIcon>
-              <ServiceTitle>{service.title}</ServiceTitle>
-              <ServiceDescription>{service.description}</ServiceDescription>
-              <SecondaryButton to={service.link}>Learn More</SecondaryButton>
-            </ServiceCard>
-          ))}
+          <CarouselTrack>
+            {/* First set of services */}
+            {services.map((service, index) => (
+              <ServiceCard
+                key={`first-${service.title}`}
+                to={service.link}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ServiceImage>
+                  <img src={service.image} alt={service.title} height={500}/>
+                </ServiceImage>
+                <ServiceTitle>{service.title}</ServiceTitle>
+              </ServiceCard>
+            ))}
+            {/* Duplicated set for infinite effect */}
+            {services.map((service, index) => (
+              <ServiceCard
+                key={`second-${service.title}`}
+                to={service.link}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ServiceImage>
+                  <img src={service.image} alt={service.title} height={500}/>
+                </ServiceImage>
+                <ServiceTitle>{service.title}</ServiceTitle>
+              </ServiceCard>
+            ))}
+          </CarouselTrack>
         </ServicesPreview>
       </Section>
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogs';
+import { PageHeading, PageSubheading, pageHeadingAnimation, pageSubheadingAnimation } from '../styles/PageHeading';
 
 const BlogContainer = styled(motion.div)`
   padding: ${props => props.theme.spacing.xxl} ${props => props.theme.spacing.lg};
@@ -13,20 +14,6 @@ const BlogContainer = styled(motion.div)`
 const BlogHeader = styled.div`
   text-align: center;
   margin-bottom: ${props => props.theme.spacing.xxl};
-
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    color: ${props => props.theme.colors.text.secondary};
-    margin-bottom: ${props => props.theme.spacing.lg};
-  }
-
-  p {
-    font-size: 1.2rem;
-    color: ${props => props.theme.colors.text.muted};
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
 `;
 
 const BlogGrid = styled.div`
@@ -185,10 +172,10 @@ const Blog = () => {
       variants={containerVariants}
     >
       <BlogHeader>
-        <motion.h1 variants={cardVariants}>Tech Blog</motion.h1>
-        <motion.p variants={cardVariants}>
+        <PageHeading {...pageHeadingAnimation}>Tech Blog</PageHeading>
+        <PageSubheading {...pageSubheadingAnimation}>
           Explore our latest insights, tutorials, and updates from the world of technology
-        </motion.p>
+        </PageSubheading>
       </BlogHeader>
 
       <BlogGrid>

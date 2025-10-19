@@ -171,10 +171,20 @@ const ProcessSection = styled.section`
 
 const ProcessSteps = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: ${props => props.theme.spacing.xl};
   margin-top: ${props => props.theme.spacing.xl};
   position: relative;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${props => props.theme.spacing.lg};
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: ${props => props.theme.spacing.md};
+  }
 `;
 
 const ProcessStep = styled(motion.div)`

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { services } from '../data/services';
+import { PageHeading, PageSubheading, pageHeadingAnimation, pageSubheadingAnimation } from '../styles/PageHeading';
 
 const ServicesContainer = styled(motion.div)`
   min-height: calc(100vh - 80px);
@@ -14,71 +15,26 @@ const ServicesContainer = styled(motion.div)`
 const Hero = styled.div`
   text-align: center;
   margin-bottom: 3rem;
-
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    color: ${({ theme }) => theme.colors.primary.main};
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: ${({ theme }) => theme.colors.primary.main};
-      border-radius: 2px;
-    }
-  }
-
-  p {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: ${({ theme }) => theme.colors.text.primary};
-    max-width: 600px;
-    margin: 0 auto;
-    opacity: 0.8;
-  }
 `;
 
 const ServicesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-  }
-`;
-
-const BottomRow = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto 0;
-  padding: 1rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
+    gap: 1.5rem;
   }
 `;
 
 const ServiceCard = styled(motion(Link))`
   background: ${({ theme }) => theme.colors.background.light};
   border-radius: 16px;
-  padding: 2rem;
+  padding: 0;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.text.primary};
   transition: all 0.3s ease;
@@ -88,12 +44,60 @@ const ServiceCard = styled(motion(Link))`
   flex-direction: column;
   width: 100%;
   max-width: 400px;
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
+`;
+
+const ServiceImage = styled.div`
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.primary.main}20 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  ${ServiceCard}:hover & {
+    img {
+      transform: scale(1.05);
+    }
+
+    &::after {
+      opacity: 1;
+    }
+  }
+`;
+
+const ServiceContent = styled.div`
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ServiceIcon = styled.div`
@@ -137,51 +141,31 @@ const ServiceDescription = styled.p`
   color: ${({ theme }) => theme.colors.text.primary};
   opacity: 0.8;
   margin-bottom: 1.5rem;
+  flex: 1;
 `;
 
-const SubServices = styled.div`
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-`;
-
-const SubServiceItem = styled.div`
+const ServiceTags = styled.div`
   display: flex;
-  align-items: center;
-  margin-bottom: 0.8rem;
-  padding: 0.5rem;
-  color: ${({ theme }) => theme.colors.text.primary};
-  font-size: 0.95rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  &::before {
-    content: '•';
-    margin-right: 0.8rem;
-    color: ${({ theme }) => theme.colors.primary.main};
-    font-size: 1.2rem;
-  }
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 `;
 
-const Price = styled.div`
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 600;
+const Tag = styled.span`
+  background: ${({ theme }) => theme.colors.primary.main}20;
   color: ${({ theme }) => theme.colors.primary.main};
-  margin-top: 1.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(0, 255, 255, 0.05);
-  border-radius: 8px;
-  display: inline-block;
-`;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}40;
+  transition: all 0.3s ease;
 
-const CheckIcon = () => (
-  <svg viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-  </svg>
-);
+  ${ServiceCard}:hover & {
+    background: ${({ theme }) => theme.colors.primary.main};
+    color: white;
+  }
+`;
 
 const WebIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -209,7 +193,6 @@ const AnalyticsIcon = () => (
   </svg>
 );
 
-// Add new icon for SEO/Digital Marketing
 const MarketingIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -234,72 +217,36 @@ const Services = () => {
     }
   };
 
-  const services = [
+  const servicesData = [
     {
       id: 'web-development',
       title: 'Web Development',
-      description: 'Custom web applications and websites built with modern technologies.',
-      price: { start: 'Starting at ₹2,999' },
-      subServices: [
-        'React/Next.js Development',
-        'E-commerce Solutions',
-        'Progressive Web Apps',
-        'API Integration'
-      ]
+      description: 'Custom websites and web applications built with modern technologies.',
+      image: '/img/react.jpg',
+      tags: ['React', 'Next.js', 'Node.js', 'TypeScript']
     },
     {
       id: 'cloud-solutions',
       title: 'Cloud Solutions',
       description: 'Scalable cloud infrastructure and deployment solutions.',
-      price: { start: 'Starting at ₹4,999' },
-      subServices: [
-        'AWS Architecture',
-        'DevOps Implementation',
-        'Serverless Solutions',
-        'Cloud Migration'
-      ]
+      image: '/img/cloud.jpg',
+      tags: ['AWS', 'DevOps', 'Docker', 'Kubernetes']
     },
     {
       id: 'uiux-design',
       title: 'UI/UX Design',
       description: 'User-centered design solutions for digital products.',
-      price: { start: 'Starting at ₹1,499' },
-      subServices: [
-        'User Interface Design',
-        'User Experience Design',
-        'Design Systems',
-        'Prototyping'
-      ]
+      image: '/img/uiux.png',
+      tags: ['Figma', 'Prototyping', 'User Research', 'Design Systems']
     },
     {
       id: 'data-analytics',
       title: 'Data Analytics',
       description: 'Data-driven insights and analytics solutions with custom dashboards.',
-      price: { start: 'Starting at ₹2,999' },
-      subServices: [
-        'Business Intelligence',
-        'Data Visualization',
-        'Predictive Analytics',
-        'Custom Dashboards'
-      ]
-    },
-    {
-      id: 'seo-marketing',
-      title: 'SEO & Digital Marketing',
-      description: 'Comprehensive digital marketing and search engine optimization strategies.',
-      price: { start: 'Starting at ₹1,499' },
-      subServices: [
-        'Search Engine Optimization',
-        'Social Media Marketing',
-        'Content Marketing',
-        'PPC Campaigns'
-      ]
+      image: '/img/typescript.jpg',
+      tags: ['Business Intelligence', 'Data Viz', 'Analytics', 'Dashboards']
     }
   ];
-
-  // Split services into top and bottom rows
-  const topRowServices = services.slice(0, 3);
-  const bottomRowServices = services.slice(3);
 
   return (
     <ServicesContainer
@@ -308,77 +255,42 @@ const Services = () => {
       transition={{ duration: 0.5 }}
     >
       <Hero>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
+        <PageHeading {...pageHeadingAnimation}>
           Our Services
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          Discover our comprehensive range of digital solutions
-        </motion.p>
+        </PageHeading>
+        <PageSubheading {...pageSubheadingAnimation}>
+          Transforming ideas into digital reality with cutting-edge solutions tailored to your business needs.
+        </PageSubheading>
       </Hero>
 
       <ServicesGrid>
-        {topRowServices.map((service, index) => (
+        {servicesData.map((service, index) => (
           <ServiceCard
             key={service.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            as={Link}
             to={`/services/${service.id}`}
           >
-            <ServiceIcon className="service-icon">
-              {getServiceIcon(service.id)}
-            </ServiceIcon>
-            <ServiceTitle>{service.title}</ServiceTitle>
-            <ServiceDescription>{service.description}</ServiceDescription>
-            <SubServices>
-              {service.subServices.map((subService, idx) => (
-                <SubServiceItem key={idx}>
-                  {subService}
-                </SubServiceItem>
-              ))}
-            </SubServices>
-            <Price>{service.price.start}</Price>
+            <ServiceImage>
+              <img src={service.image} alt={service.title} />
+            </ServiceImage>
+            <ServiceContent>
+              {/* <ServiceIcon className="service-icon">
+                {getServiceIcon(service.id)}
+              </ServiceIcon> */}
+              <ServiceTitle>{service.title}</ServiceTitle>
+              <ServiceDescription>{service.description}</ServiceDescription>
+              <ServiceTags>
+                {service.tags.map((tag, idx) => (
+                  <Tag key={idx}>{tag}</Tag>
+                ))}
+              </ServiceTags>
+            </ServiceContent>
           </ServiceCard>
         ))}
       </ServicesGrid>
-
-      <BottomRow>
-        {bottomRowServices.map((service, index) => (
-          <ServiceCard
-            key={service.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            as={Link}
-            to={`/services/${service.id}`}
-          >
-            <ServiceIcon className="service-icon">
-              {getServiceIcon(service.id)}
-            </ServiceIcon>
-            <ServiceTitle>{service.title}</ServiceTitle>
-            <ServiceDescription>{service.description}</ServiceDescription>
-            <SubServices>
-              {service.subServices.map((subService, idx) => (
-                <SubServiceItem key={idx}>
-                  {subService}
-                </SubServiceItem>
-              ))}
-            </SubServices>
-            <Price>{service.price.start}</Price>
-          </ServiceCard>
-        ))}
-      </BottomRow>
     </ServicesContainer>
   );
 };
