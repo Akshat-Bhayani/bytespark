@@ -15,7 +15,7 @@ const Nav = styled.nav`
 `;
 
 const NavContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -29,18 +29,7 @@ const Logo = styled.a`
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  
-  &::before {
-    content: "⚡";
-    font-size: 1.5rem;
-    animation: spark 2s ease-in-out infinite;
-  }
-
-  @keyframes spark {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.1) rotate(5deg); }
-  }
+  gap: 0.75rem;
 
   &:hover {
     transform: scale(1.02);
@@ -48,9 +37,35 @@ const Logo = styled.a`
   }
 `;
 
+const LogoImage = styled.img`
+  height: 60px;
+  width: 140px;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const LogoText = styled.span`
+  position: relative;
+  
+  &::after {
+    content: "⚡";
+    font-size: 1.2rem;
+    margin-left: 0.25rem;
+    animation: spark 2s ease-in-out infinite;
+  }
+
+  @keyframes spark {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+  }
+`;
+
 const NavLinks = styled(motion.div)`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
 
   @media (max-width: 768px) {
@@ -188,7 +203,10 @@ const Navbar = () => {
   return (
     <Nav>
       <NavContainer>
-        <Logo href="/">ByteSpark</Logo>
+        {/* <Logo href="/"> */}
+          <LogoImage src="/img/company-logo.png" alt="ByteSpark Logo" />
+          {/* <LogoText>ByteSpark</LogoText> */}
+        {/* </Logo> */}
 
         <NavLinks>
           <NavLink to="/" $isActive={isActive('/')}>Home</NavLink>

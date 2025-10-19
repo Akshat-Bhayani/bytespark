@@ -465,7 +465,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <img src="/team/developer.jpg" alt="Developer" />
+            {/* <img src="/team/developer.jpg" alt="Developer" /> */}
             <h3>Prasham Shah</h3>
             <p>Developer</p>
           </TeamMember>
@@ -474,7 +474,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <img src="/team/designer.jpg" alt="Developer" />
+            {/* <img src="/team/designer.jpg" alt="Developer" /> */}
             <h3>Akshat Bhayani</h3>
             <p>Developer</p>
           </TeamMember>
@@ -483,7 +483,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <img src="/team/manager.jpg" alt="Lead QA" />
+            {/* <img src="/team/manager.jpg" alt="Lead QA" /> */}
             <h3>Devam Shanischara</h3>
             <p>Lead QA</p>
           </TeamMember>

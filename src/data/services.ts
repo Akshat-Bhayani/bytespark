@@ -3,18 +3,18 @@ import { Service } from '../types';
 export const services: Service[] = [
   {
     id: 'web-development',
-    title: 'Custom Website Development',
-    description: 'Tailored web solutions that drive growth and engagement',
+    title: 'Web Development',
+    description: 'Custom websites and web applications built with modern technologies',
     price: {
       start: 2999
     },
     features: [
       'Responsive Design',
+      'Modern Frameworks (React, Next.js)',
       'CMS Integration',
       'SEO Optimization',
-      '3 Months Support',
       'Performance Optimization',
-      'Security Implementation'
+      '3 Months Support'
     ],
     reviews: [
       {
@@ -27,75 +27,99 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'cloud-solutions',
-    title: 'Smart Cloud Solutions',
-    description: 'Scalable cloud infrastructure and migration services',
+    id: 'app-development',
+    title: 'App Development',
+    description: 'Native and cross-platform mobile applications for iOS and Android',
     price: {
       start: 4999
     },
     features: [
-      'Cloud Migration',
-      '24/7 Monitoring',
-      'Auto-scaling Setup',
-      'Backup & Recovery',
-      'Security Configuration',
-      'Cost Optimization'
+      'iOS & Android Development',
+      'Cross-Platform Solutions',
+      'App Store Deployment',
+      'Push Notifications',
+      'Offline Functionality',
+      '6 Months Support'
     ],
     reviews: [
       {
         id: '2',
         author: 'Sarah Johnson',
         rating: 5,
-        comment: 'Their cloud migration service was seamless and professional.',
-        date: '2024-02-10'
+        comment: 'They created an amazing mobile app that exceeded our expectations.',
+        date: '2024-02-12'
       }
     ]
   },
   {
-    id: 'graphic-design',
-    title: 'Professional Graphic Design',
-    description: 'Creative design solutions for your brand identity',
+    id: 'cloud-services',
+    title: 'Cloud Services',
+    description: 'Scalable cloud infrastructure and deployment solutions',
     price: {
-      start: 999,
-      end: 4999
+      start: 3999
     },
     features: [
-      'Logo Design',
-      'Brand Guidelines',
-      'Marketing Materials',
-      'Social Media Graphics',
-      'Print Design',
-      'Packaging Design'
+      'Cloud Migration',
+      'AWS/Azure/GCP Setup',
+      '24/7 Monitoring',
+      'Auto-scaling Configuration',
+      'Backup & Recovery',
+      'Security Implementation'
     ],
     reviews: [
       {
         id: '3',
         author: 'Mike Wilson',
         rating: 5,
-        comment: 'Outstanding creativity and attention to detail in their design work.',
+        comment: 'Their cloud migration service was seamless and cost-effective.',
+        date: '2024-02-10'
+      }
+    ]
+  },
+  {
+    id: 'ai-ml-services',
+    title: 'AI/ML Services',
+    description: 'Artificial Intelligence and Machine Learning solutions for business automation',
+    price: {
+      start: 5999
+    },
+    features: [
+      'Machine Learning Models',
+      'Natural Language Processing',
+      'Computer Vision',
+      'Predictive Analytics',
+      'AI Integration',
+      'Custom AI Solutions'
+    ],
+    reviews: [
+      {
+        id: '4',
+        author: 'Emily Chen',
+        rating: 5,
+        comment: 'Their AI solutions automated our processes and improved efficiency significantly.',
         date: '2024-02-08'
       }
     ]
   },
   {
     id: 'uiux-design',
-    title: 'User Centered UI/UX Design',
-    description: 'User-centered design solutions for digital products',
+    title: 'UI/UX Design',
+    description: 'User-centered design solutions for exceptional digital experiences',
     price: {
-      start: 1499
+      start: 1999
     },
     features: [
-      'User Research',
-      'Wireframing',
-      'Prototyping',
-      'User Testing',
+      'User Research & Analysis',
+      'Wireframing & Prototyping',
       'Interface Design',
-      'Design Systems'
+      'User Testing',
+      'Design Systems',
+      'Responsive Design'
     ],
     reviews: [
       {
-        id: '4',
-        author: 'Emily Chen',
+        id: '5',
+        author: 'David Brown',
         rating: 5,
         comment: 'They transformed our app with an intuitive and beautiful design.',
         date: '2024-02-05'
@@ -103,52 +127,52 @@ export const services: Service[] = [
     ]
   },
   {
-    id: 'data-analytics',
-    title: 'Advanced Data Analytics',
-    description: 'Transform your data into actionable insights',
+    id: 'seo-optimisation',
+    title: 'SEO Optimisation',
+    description: 'Search Engine Optimization to improve visibility and rankings',
     price: {
-      start: 2999
+      start: 1299
     },
     features: [
-      'Data Visualization',
-      'Predictive Analytics',
-      'Business Intelligence',
-      'Custom Dashboards',
-      'Real-time Analytics',
-      'Performance Metrics'
-    ],
-    reviews: [
-      {
-        id: '5',
-        author: 'David Brown',
-        rating: 5,
-        comment: 'Their analytics solutions helped us make data-driven decisions effectively.',
-        date: '2024-02-01'
-      }
-    ]
-  },
-  {
-    id: 'seo-marketing',
-    title: 'SEO & Digital Marketing',
-    description: 'Comprehensive digital marketing and search engine optimization strategies',
-    price: {
-      start: 1499
-    },
-    features: [
-      'Search Engine Optimization',
-      'Social Media Marketing',
-      'Content Marketing',
-      'PPC Campaigns',
-      'Email Marketing',
-      'Analytics & Reporting'
+      'Keyword Research',
+      'On-Page Optimization',
+      'Technical SEO',
+      'Link Building',
+      'Local SEO',
+      'Performance Tracking'
     ],
     reviews: [
       {
         id: '6',
         author: 'Lisa Anderson',
         rating: 5,
-        comment: 'Their digital marketing strategies significantly improved our online presence and lead generation.',
-        date: '2024-02-20'
+        comment: 'Their SEO strategies significantly improved our search rankings and organic traffic.',
+        date: '2024-02-03'
+      }
+    ]
+  },
+  {
+    id: 'digital-marketing',
+    title: 'Digital Marketing',
+    description: 'Comprehensive digital marketing strategies to grow your online presence',
+    price: {
+      start: 1799
+    },
+    features: [
+      'Social Media Marketing',
+      'Content Marketing',
+      'PPC Campaigns',
+      'Email Marketing',
+      'Brand Strategy',
+      'Analytics & Reporting'
+    ],
+    reviews: [
+      {
+        id: '7',
+        author: 'Robert Taylor',
+        rating: 5,
+        comment: 'Their digital marketing campaigns boosted our brand awareness and lead generation.',
+        date: '2024-02-01'
       }
     ]
   }

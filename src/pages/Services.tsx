@@ -226,25 +226,46 @@ const Services = () => {
       tags: ['React', 'Next.js', 'Node.js', 'TypeScript']
     },
     {
-      id: 'cloud-solutions',
-      title: 'Cloud Solutions',
+      id: 'app-development',
+      title: 'App Development',
+      description: 'Native and cross-platform mobile applications for iOS and Android.',
+      image: '/img/HomePage4.jpg',
+      tags: ['React Native', 'Flutter', 'iOS', 'Android']
+    },
+    {
+      id: 'cloud-services',
+      title: 'Cloud Services',
       description: 'Scalable cloud infrastructure and deployment solutions.',
       image: '/img/cloud.jpg',
-      tags: ['AWS', 'DevOps', 'Docker', 'Kubernetes']
+      tags: ['AWS', 'Azure', 'DevOps', 'Docker']
+    },
+    {
+      id: 'ai-ml-services',
+      title: 'AI/ML Services',
+      description: 'Artificial Intelligence and Machine Learning solutions for business automation.',
+      image: '/img/typescript.jpg',
+      tags: ['Machine Learning', 'NLP', 'Computer Vision', 'AI Integration']
     },
     {
       id: 'uiux-design',
       title: 'UI/UX Design',
-      description: 'User-centered design solutions for digital products.',
+      description: 'User-centered design solutions for exceptional digital experiences.',
       image: '/img/uiux.png',
       tags: ['Figma', 'Prototyping', 'User Research', 'Design Systems']
     },
     {
-      id: 'data-analytics',
-      title: 'Data Analytics',
-      description: 'Data-driven insights and analytics solutions with custom dashboards.',
-      image: '/img/typescript.jpg',
-      tags: ['Business Intelligence', 'Data Viz', 'Analytics', 'Dashboards']
+      id: 'seo-optimisation',
+      title: 'SEO Optimisation',
+      description: 'Search Engine Optimization to improve visibility and rankings.',
+      image: '/img/HomePage2.jpg',
+      tags: ['Keyword Research', 'On-Page SEO', 'Technical SEO', 'Analytics']
+    },
+    {
+      id: 'digital-marketing',
+      title: 'Digital Marketing',
+      description: 'Comprehensive digital marketing strategies to grow your online presence.',
+      image: '/img/HomePage6.jpg',
+      tags: ['Social Media', 'Content Marketing', 'PPC', 'Email Marketing']
     }
   ];
 

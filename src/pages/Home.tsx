@@ -14,7 +14,9 @@ import {
   faHtml5,
   faCss3,
   faNodeJs,
-  faDocker
+  faDocker,
+  faAndroid,
+  faGoogle
 } from '@fortawesome/free-brands-svg-icons';
 
 // Define animations at the top of the file
@@ -47,7 +49,7 @@ const carouselAnimation = keyframes`
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(calc(-350px * 7 - 3rem * 7)); /* Move exactly 7 cards (350px each) + 7 gaps */
   }
 `;
 
@@ -265,6 +267,26 @@ const Section = styled.section`
   }
 `;
 
+const CrouselSection = styled.section`
+  max-width: 1500px;
+  margin-top: 100px;
+  position: relative;
+  background: ${({ theme }) => theme.colors.background.main};
+  
+  &::before {
+    paddin-top: 2rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: ${({ theme }) => theme.colors.primary.main};
+    border-radius: 2px;
+  }
+`;
+
 const SectionTitle = styled.h2`
   font-size: clamp(2rem, 5vw, 3rem);
   color: ${({ theme }) => theme.colors.primary.main};
@@ -291,7 +313,7 @@ const ServiceIcon = styled.div`
 
 const ServiceImage = styled.div`
   width: 100%;
-  height: 300px;
+  height: 225px;
   margin-bottom: 1rem;
   border-radius: 12px;
   overflow: hidden;
@@ -360,8 +382,8 @@ const ServiceCard = styled(motion(Link))`
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
-  width: 300px;
-  min-height: 250px;
+  width: 350px;
+  min-height: 150px;
 
   &::before {
     content: '';
@@ -411,7 +433,7 @@ const ServiceCard = styled(motion(Link))`
 const ServicesPreview = styled.div`
   overflow: hidden;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   position: relative;
   
@@ -428,20 +450,18 @@ const ServicesPreview = styled.div`
   
   &::before {
     left: 0;
-    background: linear-gradient(to right, ${({ theme }) => theme.colors.background.main}, transparent);
   }
   
   &::after {
     right: 0;
-    background: linear-gradient(to left, ${({ theme }) => theme.colors.background.main}, transparent);
   }
 `;
 
 const CarouselTrack = styled.div`
   display: flex;
-  animation: ${carouselAnimation} 20s linear infinite;
-  width: calc(200% + 6rem); /* Double width to accommodate duplicated items */
+  animation: ${carouselAnimation} 25s linear infinite;
   gap: 3rem;
+  /* Remove fixed width - let it size naturally based on content */
   
   &:hover {
     animation-play-state: paused;
@@ -659,46 +679,46 @@ const Home = () => {
       image: "/img/react.jpg"
     },
     {
-      icon: <FontAwesomeIcon icon={faPython} />,
-      title: "Cloud Solutions",
+      icon: <FontAwesomeIcon icon={faAndroid} />,
+      title: "App Development",
+      description: "Native and cross-platform mobile applications for iOS and Android. We build feature-rich mobile apps that provide seamless user experiences across all devices.",
+      link: "/services/app-development",
+      image: "/img/HomePage4.jpg"
+    },
+    {
+      icon: <FontAwesomeIcon icon={faAws} />,
+      title: "Cloud Services",
       description: "Scalable cloud infrastructure and deployment solutions using AWS, Azure, and Google Cloud. We help businesses optimize their cloud presence and reduce costs.",
-      link: "/services/cloud-solutions",
+      link: "/services/cloud-services",
       image: "/img/cloud.jpg"
     },
     {
-      icon: <FontAwesomeIcon icon={faHtml5} />,
+      icon: <FontAwesomeIcon icon={faPython} />,
+      title: "AI/ML Services",
+      description: "Artificial Intelligence and Machine Learning solutions to automate processes, gain insights from data, and enhance user experiences with intelligent features.",
+      link: "/services/ai-ml-services",
+      image: "/img/typescript.jpg"
+    },
+    {
+      icon: <FontAwesomeIcon icon={faFigma} />,
       title: "UI/UX Design",
       description: "User-centered design solutions that focus on creating intuitive and engaging user experiences. We combine aesthetics with functionality to deliver exceptional designs.",
       link: "/services/uiux-design",
       image: "/img/uiux.png"
     },
     {
-      icon: <FontAwesomeIcon icon={faDocker} />,
-      title: "Data Analytics",
-      description: "Transform your data into actionable insights with our analytics solutions. We help businesses make data-driven decisions and optimize their operations.",
-      link: "/services/data-analytics",
-      image: "/img/typescript.jpg"
-    },
-    {
-      icon: <FontAwesomeIcon icon={faAws} />,
-      title: "DevOps Solutions",
-      description: "Streamline your development workflow with automated CI/CD pipelines, infrastructure as code, and cloud deployment strategies.",
-      link: "/services/devops",
-      image: "/img/cloud.jpg"
-    },
-    {
-      icon: <FontAwesomeIcon icon={faFigma} />,
-      title: "Digital Marketing",
-      description: "Comprehensive digital marketing strategies including SEO, social media management, and performance tracking to grow your business.",
-      link: "/services/digital-marketing",
+      icon: <FontAwesomeIcon icon={faGoogle} />,
+      title: "SEO Optimisation",
+      description: "Search Engine Optimization strategies to improve your website's visibility and rankings. We help drive organic traffic and increase your online presence.",
+      link: "/services/seo-optimisation",
       image: "/img/HomePage2.jpg"
     },
     {
-      icon: <FontAwesomeIcon icon={faNodeJs} />,
-      title: "API Development",
-      description: "Robust and scalable API solutions for seamless integration between systems, mobile apps, and third-party services.",
-      link: "/services/api-development",
-      image: "/img/typescript.jpg"
+      icon: <FontAwesomeIcon icon={faReact} />,
+      title: "Digital Marketing",
+      description: "Comprehensive digital marketing strategies including social media management, content marketing, and performance tracking to grow your business online.",
+      link: "/services/digital-marketing",
+      image: "/img/HomePage6.jpg"
     }
   ];
 
@@ -788,8 +808,8 @@ const Home = () => {
         </HeroContent>
       </HeroSection>
 
-      <Section>
-        <SectionTitle>Our Services</SectionTitle>
+      <CrouselSection>
+        {/* <SectionTitle>Our Services</SectionTitle> */}
         <ServicesPreview>
           <CarouselTrack>
             {/* First set of services */}
@@ -803,7 +823,7 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <ServiceImage>
-                  <img src={service.image} alt={service.title} height={500}/>
+                  <img src={service.image} alt={service.title}/>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
               </ServiceCard>
@@ -819,14 +839,14 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <ServiceImage>
-                  <img src={service.image} alt={service.title} height={500}/>
+                  <img src={service.image} alt={service.title}/>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
               </ServiceCard>
             ))}
           </CarouselTrack>
         </ServicesPreview>
-      </Section>
+      </CrouselSection>
 
       <Section>
         <SectionTitle>About Us</SectionTitle>
