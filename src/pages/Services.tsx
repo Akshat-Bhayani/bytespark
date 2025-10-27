@@ -167,6 +167,40 @@ const Tag = styled.span`
   }
 `;
 
+const TechnologiesSection = styled.div`
+  margin-top: 1.5rem;
+`;
+
+const SectionTitle = styled.h4`
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+`;
+
+const TechnologiesList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+`;
+
+const TechTag = styled.span`
+  background: ${({ theme }) => theme.colors.primary.main}15;
+  color: ${({ theme }) => theme.colors.primary.main};
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}30;
+  transition: all 0.3s ease;
+
+  ${ServiceCard}:hover & {
+    background: ${({ theme }) => theme.colors.primary.main}25;
+    border-color: ${({ theme }) => theme.colors.primary.main}60;
+  }
+`;
+
 const WebIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/>
@@ -285,32 +319,40 @@ const Services = () => {
       </Hero>
 
       <ServicesGrid>
-        {servicesData.map((service, index) => (
-          <ServiceCard
-            key={service.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            to={`/services/${service.id}`}
-          >
-            <ServiceImage>
-              <img src={service.image} alt={service.title} />
-            </ServiceImage>
-            <ServiceContent>
-              {/* <ServiceIcon className="service-icon">
-                {getServiceIcon(service.id)}
-              </ServiceIcon> */}
-              <ServiceTitle>{service.title}</ServiceTitle>
-              <ServiceDescription>{service.description}</ServiceDescription>
-              <ServiceTags>
-                {service.tags.map((tag, idx) => (
-                  <Tag key={idx}>{tag}</Tag>
-                ))}
-              </ServiceTags>
-            </ServiceContent>
-          </ServiceCard>
-        ))}
+        {services.map((service, index) => {
+          const serviceImage = servicesData.find(s => s.id === service.id)?.image || '/img/react.jpg';
+          return (
+            <ServiceCard
+              key={service.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              to={`/services/${service.id}`}
+            >
+              <ServiceImage>
+                <img src={serviceImage} alt={service.title} />
+              </ServiceImage>
+              <ServiceContent>
+                <ServiceTitle>{service.title}</ServiceTitle>
+                <ServiceDescription>{service.description}</ServiceDescription>
+                <ServiceTags>
+                  {service.features.slice(0, 4).map((feature, idx) => (
+                    <Tag key={idx}>{feature}</Tag>
+                  ))}
+                </ServiceTags>
+                <TechnologiesSection>
+                  <SectionTitle>Technologies & Tools</SectionTitle>
+                  <TechnologiesList>
+                    {service.technologies.map((tech, idx) => (
+                      <TechTag key={idx}>{tech}</TechTag>
+                    ))}
+                  </TechnologiesList>
+                </TechnologiesSection>
+              </ServiceContent>
+            </ServiceCard>
+          );
+        })}
       </ServicesGrid>
     </ServicesContainer>
   );

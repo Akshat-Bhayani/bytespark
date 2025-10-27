@@ -12,16 +12,6 @@ interface TechItem {
   description: string;
 }
 
-type ServiceId = 'web-development' | 'cloud-solutions' | 'uiux-design' | 'data-analytics' | 'seo-marketing';
-
-interface TechStack {
-  'web-development': TechItem[];
-  'cloud-solutions': TechItem[];
-  'uiux-design': TechItem[];
-  'data-analytics': TechItem[];
-  'seo-marketing': TechItem[];
-}
-
 // Styled Components
 const ServiceContainer = styled(motion.div)`
   padding: 4rem 2rem;
@@ -188,7 +178,7 @@ const TechGrid = styled.div`
 
 const TechItem = styled(motion.div)`
   background: ${({ theme }) => theme.colors.background.main};
-  padding: 1.5rem;
+  padding: 1.2rem;
   border-radius: 12px;
   text-align: center;
   border: 1px solid ${({ theme }) => theme.colors.primary.main}20;
@@ -202,14 +192,9 @@ const TechItem = styled(motion.div)`
 
   h4 {
     color: ${({ theme }) => theme.colors.primary.main};
-    margin: 1rem 0 0.5rem;
+    margin: 0;
     font-size: 1.1rem;
-  }
-
-  p {
-    color: ${({ theme }) => theme.colors.text.primary};
-    opacity: 0.8;
-    font-size: 0.9rem;
+    font-weight: 600;
   }
 `;
 
@@ -252,43 +237,8 @@ const ServiceDetail: React.FC = () => {
     return <Navigate to="/services" replace />;
   }
 
-  const techStack: TechStack = {
-    'web-development': [
-      { name: 'React', description: 'Frontend Development' },
-      { name: 'Next.js', description: 'Server-Side Rendering' },
-      { name: 'Node.js', description: 'Backend Development' },
-      { name: 'TypeScript', description: 'Type Safety' }
-    ],
-    'cloud-solutions': [
-      { name: 'AWS', description: 'Cloud Infrastructure' },
-      { name: 'Docker', description: 'Containerization' },
-      { name: 'Kubernetes', description: 'Orchestration' },
-      { name: 'Terraform', description: 'Infrastructure as Code' }
-    ],
-    'uiux-design': [
-      { name: 'Figma', description: 'Design & Prototyping' },
-      { name: 'Adobe XD', description: 'UI Design' },
-      { name: 'Sketch', description: 'Vector Graphics' },
-      { name: 'InVision', description: 'Prototyping' }
-    ],
-    'data-analytics': [
-      { name: 'Python', description: 'Data Processing' },
-      { name: 'TensorFlow', description: 'Machine Learning' },
-      { name: 'Tableau', description: 'Data Visualization' },
-      { name: 'Power BI', description: 'Business Intelligence' }
-    ],
-    'seo-marketing': [
-      { name: 'Google Analytics', description: 'Web Analytics' },
-      { name: 'SEMrush', description: 'SEO Tools' },
-      { name: 'Mailchimp', description: 'Email Marketing' },
-      { name: 'Hootsuite', description: 'Social Media Management' }
-    ]
-  };
-
-  // Type guard to check if serviceId is a valid key
-  const isValidServiceId = (id: string): id is ServiceId => {
-    return id in techStack;
-  };
+  // Get technologies from service data
+  const serviceTechnologies = service.technologies || [];
 
   return (
     <ServiceContainer
@@ -333,15 +283,14 @@ const ServiceDetail: React.FC = () => {
       <TechStackSection>
         <TechStackTitle>Technologies We Use</TechStackTitle>
         <TechGrid>
-          {serviceId && isValidServiceId(serviceId) && techStack[serviceId].map((tech: TechItem, index: number) => (
+          {serviceTechnologies.map((tech: string, index: number) => (
             <TechItem
-              key={tech.name}
+              key={tech}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <h4>{tech.name}</h4>
-              <p>{tech.description}</p>
+              <h4>{tech}</h4>
             </TechItem>
           ))}
         </TechGrid>

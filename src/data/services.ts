@@ -16,6 +16,18 @@ export const services: Service[] = [
       'Performance Optimization',
       '3 Months Support'
     ],
+    technologies: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'Node.js',
+      'MongoDB',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'Styled Components',
+      'GraphQL',
+      'REST APIs'
+    ],
     reviews: [
       {
         id: '1',
@@ -40,6 +52,18 @@ export const services: Service[] = [
       'Push Notifications',
       'Offline Functionality',
       '6 Months Support'
+    ],
+    technologies: [
+      'React Native',
+      'Flutter',
+      'Swift',
+      'Kotlin',
+      'Dart',
+      'Firebase',
+      'Redux',
+      'SQLite',
+      'Push Notifications',
+      'App Store Connect'
     ],
     reviews: [
       {
@@ -66,6 +90,18 @@ export const services: Service[] = [
       'Backup & Recovery',
       'Security Implementation'
     ],
+    technologies: [
+      'AWS',
+      'Microsoft Azure',
+      'Google Cloud Platform',
+      'Docker',
+      'Kubernetes',
+      'Terraform',
+      'Jenkins',
+      'CloudWatch',
+      'CloudFormation',
+      'Nginx'
+    ],
     reviews: [
       {
         id: '3',
@@ -90,6 +126,18 @@ export const services: Service[] = [
       'Predictive Analytics',
       'AI Integration',
       'Custom AI Solutions'
+    ],
+    technologies: [
+      'Python',
+      'TensorFlow',
+      'PyTorch',
+      'Scikit-learn',
+      'OpenAI GPT',
+      'Hugging Face',
+      'OpenCV',
+      'Pandas',
+      'NumPy',
+      'Jupyter'
     ],
     reviews: [
       {
@@ -116,6 +164,18 @@ export const services: Service[] = [
       'Design Systems',
       'Responsive Design'
     ],
+    technologies: [
+      'Figma',
+      'Adobe XD',
+      'Sketch',
+      'Adobe Creative Suite',
+      'Framer',
+      'InVision',
+      'Principle',
+      'Zeplin',
+      'Miro',
+      'Hotjar'
+    ],
     reviews: [
       {
         id: '5',
@@ -141,6 +201,18 @@ export const services: Service[] = [
       'Local SEO',
       'Performance Tracking'
     ],
+    technologies: [
+      'Google Analytics',
+      'Google Search Console',
+      'SEMrush',
+      'Ahrefs',
+      'Moz',
+      'Screaming Frog',
+      'Google Tag Manager',
+      'Yoast SEO',
+      'Schema.org',
+      'Google PageSpeed'
+    ],
     reviews: [
       {
         id: '6',
@@ -165,6 +237,18 @@ export const services: Service[] = [
       'Email Marketing',
       'Brand Strategy',
       'Analytics & Reporting'
+    ],
+    technologies: [
+      'Google Ads',
+      'Facebook Ads',
+      'HubSpot',
+      'Mailchimp',
+      'Hootsuite',
+      'Buffer',
+      'Google Analytics',
+      'Canva',
+      'Adobe Creative Suite',
+      'WordPress'
     ],
     reviews: [
       {

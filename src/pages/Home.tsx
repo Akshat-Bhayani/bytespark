@@ -430,6 +430,30 @@ const ServiceCard = styled(motion(Link))`
   }
 `;
 
+const CarouselTechTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+`;
+
+const CarouselTechTag = styled.span`
+  background: ${({ theme }) => theme.colors.primary.main}15;
+  color: ${({ theme }) => theme.colors.primary.main};
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}30;
+  transition: all 0.3s ease;
+
+  ${ServiceCard}:hover & {
+    background: ${({ theme }) => theme.colors.primary.main}25;
+    border-color: ${({ theme }) => theme.colors.primary.main}60;
+    transform: translateY(-1px);
+  }
+`;
+
 const ServicesPreview = styled.div`
   overflow: hidden;
   width: 100%;
@@ -676,49 +700,56 @@ const Home = () => {
       title: "Web Development",
       description: "Custom websites and web applications built with modern technologies like React, Next.js, and Node.js. We create responsive, fast, and user-friendly digital experiences.",
       link: "/services/web-development",
-      image: "/img/react.jpg"
+      image: "/img/react.jpg",
+      technologies: ["React", "Next.js", "TypeScript", "Node.js"]
     },
     {
       icon: <FontAwesomeIcon icon={faAndroid} />,
       title: "App Development",
       description: "Native and cross-platform mobile applications for iOS and Android. We build feature-rich mobile apps that provide seamless user experiences across all devices.",
       link: "/services/app-development",
-      image: "/img/HomePage4.jpg"
+      image: "/img/HomePage4.jpg",
+      technologies: ["React Native", "Flutter", "Swift", "Kotlin"]
     },
     {
       icon: <FontAwesomeIcon icon={faAws} />,
       title: "Cloud Services",
       description: "Scalable cloud infrastructure and deployment solutions using AWS, Azure, and Google Cloud. We help businesses optimize their cloud presence and reduce costs.",
       link: "/services/cloud-services",
-      image: "/img/cloud.jpg"
+      image: "/img/cloud.jpg",
+      technologies: ["AWS", "Azure", "Docker", "Kubernetes"]
     },
     {
       icon: <FontAwesomeIcon icon={faPython} />,
       title: "AI/ML Services",
       description: "Artificial Intelligence and Machine Learning solutions to automate processes, gain insights from data, and enhance user experiences with intelligent features.",
       link: "/services/ai-ml-services",
-      image: "/img/typescript.jpg"
+      image: "/img/typescript.jpg",
+      technologies: ["Python", "TensorFlow", "PyTorch", "OpenAI"]
     },
     {
       icon: <FontAwesomeIcon icon={faFigma} />,
       title: "UI/UX Design",
       description: "User-centered design solutions that focus on creating intuitive and engaging user experiences. We combine aesthetics with functionality to deliver exceptional designs.",
       link: "/services/uiux-design",
-      image: "/img/uiux.png"
+      image: "/img/uiux.png",
+      technologies: ["Figma", "Adobe XD", "Sketch", "Framer"]
     },
     {
       icon: <FontAwesomeIcon icon={faGoogle} />,
       title: "SEO Optimisation",
       description: "Search Engine Optimization strategies to improve your website's visibility and rankings. We help drive organic traffic and increase your online presence.",
       link: "/services/seo-optimisation",
-      image: "/img/HomePage2.jpg"
+      image: "/img/HomePage2.jpg",
+      technologies: ["Google Analytics", "SEMrush", "Ahrefs", "Schema.org"]
     },
     {
       icon: <FontAwesomeIcon icon={faReact} />,
       title: "Digital Marketing",
       description: "Comprehensive digital marketing strategies including social media management, content marketing, and performance tracking to grow your business online.",
       link: "/services/digital-marketing",
-      image: "/img/HomePage6.jpg"
+      image: "/img/HomePage6.jpg",
+      technologies: ["Google Ads", "HubSpot", "Mailchimp", "Hootsuite"]
     }
   ];
 
@@ -826,6 +857,11 @@ const Home = () => {
                   <img src={service.image} alt={service.title}/>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
+                <CarouselTechTags>
+                  {service.technologies.map((tech, techIndex) => (
+                    <CarouselTechTag key={techIndex}>{tech}</CarouselTechTag>
+                  ))}
+                </CarouselTechTags>
               </ServiceCard>
             ))}
             {/* Duplicated set for infinite effect */}
@@ -842,6 +878,11 @@ const Home = () => {
                   <img src={service.image} alt={service.title}/>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
+                <CarouselTechTags>
+                  {service.technologies.map((tech, techIndex) => (
+                    <CarouselTechTag key={techIndex}>{tech}</CarouselTechTag>
+                  ))}
+                </CarouselTechTags>
               </ServiceCard>
             ))}
           </CarouselTrack>

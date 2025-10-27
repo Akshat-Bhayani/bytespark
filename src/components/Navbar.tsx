@@ -38,8 +38,8 @@ const Logo = styled.a`
 `;
 
 const LogoImage = styled.img`
-  height: 60px;
-  width: 140px;
+  height: 65px;
+  width: 160px;
   transition: transform 0.2s ease;
   
   &:hover {

@@ -27,27 +27,37 @@ const Hero = styled.div`
   text-align: center;
   margin-bottom: ${props => props.theme.spacing.xxl};
   position: relative;
-  padding: 4rem 0;
+  padding: 6rem 0;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)),
+    url('/img/about-hero.png') center/cover no-repeat;
   
   &::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     width: 100px;
     height: 4px;
     background: linear-gradient(90deg, transparent, ${props => props.theme.colors.primary.main}, transparent);
+    z-index: 2;
   }
   
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: clamp(2rem, 5vw, 3.9rem);
     margin-bottom: ${props => props.theme.spacing.lg};
     background: linear-gradient(135deg, ${props => props.theme.colors.primary.main}, #60A5FA);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
     display: inline-block;
+    z-index: 2;
 
     &::after {
       content: '';
@@ -61,13 +71,19 @@ const Hero = styled.div`
   }
   
   p {
-    font-size: 1.25rem;
-    color: ${props => props.theme.colors.text.muted};
-    max-width: 800px;
+    font-size: 1rem;
+    color: ${props => props.theme.colors.text.primary};
+    max-width: 600px;
     margin: 0 auto;
     line-height: 1.8;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(18, 135, 224, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 `;
 

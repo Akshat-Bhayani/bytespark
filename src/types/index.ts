@@ -7,6 +7,7 @@ export interface Service {
     end?: number;
   };
   features: string[];
+  technologies: string[];
   reviews?: Review[];
 }
 
