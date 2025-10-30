@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faJs, 
-  faPython, 
-  faJava, 
-  faAws, 
-  faFigma, 
+import {
+  faJs,
+  faPython,
+  faJava,
+  faAws,
+  faFigma,
   faReact,
   faHtml5,
   faCss3,
@@ -248,7 +248,7 @@ const CTAButton = styled(Link)`
 `;
 
 const Section = styled.section`
-  padding: 6rem 2rem;
+  padding: 3rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
@@ -272,6 +272,7 @@ const CrouselSection = styled.section`
   margin-top: 100px;
   position: relative;
   background: ${({ theme }) => theme.colors.background.main};
+  padding: 3rem;
   
   &::before {
     paddin-top: 2rem;
@@ -316,14 +317,50 @@ const ServiceImage = styled.div`
   height: 225px;
   margin-bottom: 1rem;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 
-  img {
+  .stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: ${({ theme }) => theme.colors.background.light};
+    border-radius: 12px;
+  }
+
+  .stack-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease;
+    transform-origin: center;
+  }
+
+  .stack-layer.back {
+    z-index: 1;
+    background: ${({ theme }) => theme.colors.primary.main}40;
+    transform: translate(8px, 8px) rotate(3deg);
+  }
+
+  .stack-layer.mid {
+    z-index: 2;
+    background: ${({ theme }) => theme.colors.primary.main}60;
+    transform: translate(4px, 4px) rotate(1.5deg);
+  }
+
+  .stack-layer.front {
+    z-index: 3;
+    transform: translate(0px, 0px) rotate(0deg);
+    overflow: hidden;
+  }
+
+  .stack-layer.front img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    border-radius: 8px;
   }
 
   &::after {
@@ -333,13 +370,11 @@ const ServiceImage = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      135deg,
-      ${({ theme }) => theme.colors.primary.main}20 0%,
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    pointer-events: none;
+    background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main}08 0%, transparent 60%);
+    opacity: 0.0;
+    transition: opacity 0.28s ease;
   }
 `;
 
@@ -385,40 +420,32 @@ const ServiceCard = styled(motion(Link))`
   width: 350px;
   min-height: 150px;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: ${({ theme }) => theme.colors.primary.main};
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
-
   &:hover {
-    transform: translateY(-5px);
-    border-color: ${({ theme }) => theme.colors.primary.main};
-    box-shadow: 0 20px 40px ${({ theme }) => theme.colors.primary.main}10;
-
-    &::before {
-      transform: scaleX(1);
-    }
+    transform: translateY(-2px);
 
     ${ServiceIcon} {
-      transform: scale(1.1);
+      transform: scale(1.05);
       color: ${({ theme }) => theme.colors.primary.main};
     }
 
     ${ServiceImage} {
-      img {
-        transform: scale(1.05);
+      .stack-layer.back {
+        transform: translate(12px, 12px) rotate(4deg);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      }
+
+      .stack-layer.mid {
+        transform: translate(6px, 6px) rotate(2deg);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      }
+
+      .stack-layer.front {
+        transform: translate(-2px, -2px) rotate(-1deg);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.18);
       }
 
       &::after {
-        opacity: 1;
+        opacity: 0.3;
       }
     }
   }
@@ -693,14 +720,14 @@ const ShimmerEffect = styled.div`
 
 const Home = () => {
   const recentPosts = blogPosts.slice(0, 3);
-  
+
   const services = [
     {
       icon: <FontAwesomeIcon icon={faJs} />,
       title: "Web Development",
       description: "Custom websites and web applications built with modern technologies like React, Next.js, and Node.js. We create responsive, fast, and user-friendly digital experiences.",
       link: "/services/web-development",
-      image: "/img/react.jpg",
+      image: "/img/web-dev.png",
       technologies: ["React", "Next.js", "TypeScript", "Node.js"]
     },
     {
@@ -708,7 +735,7 @@ const Home = () => {
       title: "App Development",
       description: "Native and cross-platform mobile applications for iOS and Android. We build feature-rich mobile apps that provide seamless user experiences across all devices.",
       link: "/services/app-development",
-      image: "/img/HomePage4.jpg",
+      image: "/img/app-dev.png",
       technologies: ["React Native", "Flutter", "Swift", "Kotlin"]
     },
     {
@@ -716,7 +743,7 @@ const Home = () => {
       title: "Cloud Services",
       description: "Scalable cloud infrastructure and deployment solutions using AWS, Azure, and Google Cloud. We help businesses optimize their cloud presence and reduce costs.",
       link: "/services/cloud-services",
-      image: "/img/cloud.jpg",
+      image: "/img/cloud-computing.png",
       technologies: ["AWS", "Azure", "Docker", "Kubernetes"]
     },
     {
@@ -724,7 +751,7 @@ const Home = () => {
       title: "AI/ML Services",
       description: "Artificial Intelligence and Machine Learning solutions to automate processes, gain insights from data, and enhance user experiences with intelligent features.",
       link: "/services/ai-ml-services",
-      image: "/img/typescript.jpg",
+      image: "/img/ai-ml.png",
       technologies: ["Python", "TensorFlow", "PyTorch", "OpenAI"]
     },
     {
@@ -732,7 +759,7 @@ const Home = () => {
       title: "UI/UX Design",
       description: "User-centered design solutions that focus on creating intuitive and engaging user experiences. We combine aesthetics with functionality to deliver exceptional designs.",
       link: "/services/uiux-design",
-      image: "/img/uiux.png",
+      image: "/img/ui-ux.png",
       technologies: ["Figma", "Adobe XD", "Sketch", "Framer"]
     },
     {
@@ -740,7 +767,7 @@ const Home = () => {
       title: "SEO Optimisation",
       description: "Search Engine Optimization strategies to improve your website's visibility and rankings. We help drive organic traffic and increase your online presence.",
       link: "/services/seo-optimisation",
-      image: "/img/HomePage2.jpg",
+      image: "/img/seo.png",
       technologies: ["Google Analytics", "SEMrush", "Ahrefs", "Schema.org"]
     },
     {
@@ -762,13 +789,13 @@ const Home = () => {
       <HeroSection>
         <RotatingGradient />
         <ShimmerEffect />
-        
+
         {/* Animated Circles */}
         <AnimatedCircle size={300} top={20} left={10} delay={0} />
         <AnimatedCircle size={200} top={60} left={80} delay={2} />
         <AnimatedCircle size={250} top={40} left={50} delay={4} />
         <AnimatedCircle size={180} top={30} left={70} delay={6} />
-        
+
         {/* Animated Bubbles */}
         <AnimatedBubble size={100} left={10} delay={0} duration={15} />
         <AnimatedBubble size={150} left={30} delay={3} duration={18} />
@@ -827,14 +854,13 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            We create innovative digital solutions that help businesses thrive in the modern world.
-          </motion.p>
+            Building digital solutions that help businesses work smarter, grow faster, and scale easily          </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <CTAButton to="/contact">Get in touch</CTAButton>
+            <CTAButton to="/contact">Let's Get Started</CTAButton>
           </motion.div>
         </HeroContent>
       </HeroSection>
@@ -854,7 +880,13 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <ServiceImage>
-                  <img src={service.image} alt={service.title}/>
+                  <div className="stack">
+                    <div className="stack-layer back"></div>
+                    <div className="stack-layer mid"></div>
+                    <div className="stack-layer front">
+                      <img src={service.image} alt={service.title} />
+                    </div>
+                  </div>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
                 <CarouselTechTags>
@@ -875,7 +907,13 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <ServiceImage>
-                  <img src={service.image} alt={service.title}/>
+                  <div className="stack">
+                    <div className="stack-layer back"></div>
+                    <div className="stack-layer mid"></div>
+                    <div className="stack-layer front">
+                      <img src={service.image} alt={service.title} />
+                    </div>
+                  </div>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
                 <CarouselTechTags>
@@ -898,10 +936,20 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              ByteSpark is a fresh and innovative digital solutions provider, specializing in creating 
-              modern, responsive websites. Though we're new to the scene, our team brings together 
-              expertise and creativity to deliver exceptional results. We're passionate about helping 
-              businesses establish their digital presence with clean, user-friendly designs.
+              <ul style={{listStyle: 'none'}}>
+                <li style={{marginBottom: '12px'}}>
+                  Byte Spark is your digital innovation partner — creating scalable, data-driven, and user-focused solutions.
+                </li>
+                <li style={{marginBottom: '12px'}}>
+                  Our multidisciplinary team of creators and engineers ensures every project blends innovation, functionality, and performance.
+                </li>
+                <li style={{marginBottom: '12px'}}>
+                  Our mission is to bridge creativity with technology — empowering brands to lead in the digital era.
+                </li>
+                <li style={{marginBottom: '12px', fontWeight: 'bold'}}>
+                  ⚡ Let’s turn your vision into reality together.
+                </li>
+              </ul>
             </motion.p>
             <motion.div>
               <SecondaryButton to="/about">Learn More</SecondaryButton>

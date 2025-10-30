@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Nav = styled.nav`
   background: white;
-  padding: 1rem 2rem;
+  padding: 0.4rem 2rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -40,7 +40,7 @@ const Logo = styled.a`
 const LogoImage = styled.img`
   height: 65px;
   width: 160px;
-  transition: transform 0.2s ease;
+  transform: scale(1.1);
   
   &:hover {
     transform: scale(1.05);
