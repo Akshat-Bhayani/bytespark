@@ -16,6 +16,49 @@ const ContactGrid = styled.div`
   margin-top: ${props => props.theme.spacing.lg};
 `;
 
+// Left column helpers for the requested layout
+const LeftColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${props => props.theme.spacing.md};
+`;
+
+const TopPair = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ${props => props.theme.spacing.md};
+`;
+
+const TimingsBox = styled(motion.div)`
+  margin-top: ${props => props.theme.spacing.lg};
+  padding: ${props => props.theme.spacing.sm};
+  background: ${props => props.theme.colors.background.light};
+  border-radius: ${props => props.theme.borderRadius.medium};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: ${props => props.theme.spacing.sm};
+  border: 1px solid ${props => props.theme.colors.primary.main}10;
+  h3 { margin: 0; color: ${props => props.theme.colors.primary.main}; }
+`;
+
+const FormCard = styled(motion.div)`
+  background: ${props => props.theme.colors.background.light};
+  padding: ${props => props.theme.spacing.lg};
+  border-radius: ${props => props.theme.borderRadius.medium};
+  box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+`;
+
+const FormTitle = styled.h3`
+  margin: 0 0 ${p => p.theme.spacing.md} 0;
+  color: ${p => p.theme.colors.primary.dark};
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  padding-bottom: ${p => p.theme.spacing.sm};
+  border-bottom: 1px solid ${p => p.theme.colors.primary.main}10;
+`;
+
 const ContactInfo = styled(motion.div)`
   h2 {
     color: ${props => props.theme.colors.text.secondary};
@@ -31,11 +74,10 @@ const ContactInfo = styled(motion.div)`
 `;
 
 const InfoSection = styled(motion.div)`
-  margin-top: ${props => props.theme.spacing.lg};
-  padding: ${props => props.theme.spacing.md};
   background: ${props => props.theme.colors.background.light};
   border-radius: ${props => props.theme.borderRadius.medium};
-  
+  padding: ${'0.5rem 0.5rem'};
+  text-align: center;
   h3 {
     color: ${props => props.theme.colors.primary.main};
     margin-bottom: ${props => props.theme.spacing.sm};
@@ -43,7 +85,6 @@ const InfoSection = styled(motion.div)`
 `;
 
 const MapContainer = styled.div`
-  margin-top: ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.borderRadius.medium};
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -62,12 +103,12 @@ const Form = styled(motion.form)`
   display: flex;
   flex-direction: column;
   gap: ${props => props.theme.spacing.md};
-  margin-top: 100px;
+  margin-top: 30px;
 `;
 
 const Input = styled(motion.input)<{ $hasError?: boolean }>`
   padding: ${props => props.theme.spacing.md};
-  border: 2px solid ${props => props.$hasError ? '#e74c3c' : 'transparent'};
+  border: 1px solid ${props => props.$hasError ? '#e74c3c' : 'rgba(0,0,0,0.08)'};
   border-radius: ${props => props.theme.borderRadius.medium};
   font-size: 1rem;
   background: ${props => props.theme.colors.background.light};
@@ -95,10 +136,10 @@ const InputGroup = styled.div`
 
 const TextArea = styled(motion.textarea)`
   padding: ${props => props.theme.spacing.md};
-  border: 2px solid transparent;
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: ${props => props.theme.borderRadius.medium};
   font-size: 1rem;
-  min-height: 150px;
+  min-height: 130px;
   background: ${props => props.theme.colors.background.light};
   transition: ${props => props.theme.transitions.default};
   resize: vertical;
@@ -176,7 +217,7 @@ const Contact = () => {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
-    
+
     // Real-time validation
     if (field === 'Email') {
       if (value && !validateEmail(value)) {
@@ -185,7 +226,7 @@ const Contact = () => {
         setErrors({ ...errors, Email: '' });
       }
     }
-    
+
     if (field === 'Number') {
       if (value && !validatePhone(value)) {
         setErrors({ ...errors, Number: 'Please enter a valid phone number' });
@@ -197,11 +238,11 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate before submission
     const emailValid = validateEmail(formData.Email);
     const phoneValid = validatePhone(formData.Number);
-    
+
     if (!emailValid || !phoneValid) {
       setErrors({
         Email: !emailValid ? 'Please enter a valid email address' : '',
@@ -211,12 +252,12 @@ const Contact = () => {
     }
     const apiEndPoint = 'https://script.google.com/macros/s/AKfycbyrlWED2ew2FIQMgMjoiIGlmfN7tE1bl_78wnVD5ErL7HjGnhKLosy_-a0SkKKngzVJDg/exec';
     const formD = new FormData();
-    formD.append('Name',formData.Name);
-    formD.append('Email',formData.Email);
-    formD.append('Subject',formData.Subject);
-    formD.append('Message',formData.Message);
-    formD.append('PhoneNumber',formData.Number);
-    formD.append('Date',new Date().toLocaleDateString())
+    formD.append('Name', formData.Name);
+    formD.append('Email', formData.Email);
+    formD.append('Subject', formData.Subject);
+    formD.append('Message', formData.Message);
+    formD.append('PhoneNumber', formData.Number);
+    formD.append('Date', new Date().toLocaleDateString())
     setFormData({
       Name: '',
       Email: '',
@@ -229,11 +270,11 @@ const Contact = () => {
         method: 'POST',
         body: formD,
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to send message');
       }
-  
+
       const data = await response.json();
       setFormData({
         Name: '',
@@ -242,11 +283,11 @@ const Contact = () => {
         Message: '',
         Number: '',
       });
-      console.log('data',data);
+      console.log('data', data);
     } catch (err) {
       console.log(err instanceof Error ? err.message : 'Something went wrong');
-    } 
-  }; 
+    }
+  };
 
   // const handleSubmit = async (e: FormEvent) => {
   //   e.preventDefault();
@@ -268,118 +309,131 @@ const Contact = () => {
         Get in Touch
       </PageHeading>
       <PageSubheading {...pageSubheadingAnimation}>
-        Have a question or want to work together? We'd love to hear from you.
+        We'd love to hear from you.
       </PageSubheading>
-      
       <ContactGrid>
-      <ContactInfo style={{ marginTop: '45px' }}>
-                    <InfoSection variants={itemVariants}>
-            <h3>Our Office</h3>
-            <p>506, Sumeru Prime</p>
-            <p>Bengaluru, Karnataka</p>
-            <p>Pin: 560001</p>
-          </InfoSection>
+        <ContactInfo style={{ marginTop: '45px' }}>
+          <LeftColumn>
+            <TopPair>
+              <InfoSection variants={itemVariants}>
+                <h3>Our Office</h3>
+                <p>
+                  SSV Pearl, Gulmohar Enclave Rd, Munnekollal, Bengaluru, Karnataka 560037
+                </p>
+              </InfoSection>
 
-          <InfoSection variants={itemVariants}>
-            <h3>Get in Touch</h3>
-            <p>Email: hello@bytespark.in</p>
-            <p>Phone: +91 9876543210</p>
-          </InfoSection>
+              {/* Keep Get in Touch section unchanged as requested */}
+              <InfoSection variants={itemVariants}>
+                <h3>Get in Touch</h3>
+                <p>Email: info@bytespark.in
+                  <br />Phone: +91 9876543210</p>
+              </InfoSection>
+            </TopPair>
 
-          <InfoSection variants={itemVariants}>
-            <h3>Location</h3>
-            <MapContainer>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0!2d77.6!3d12.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzEyLjAiTiA3N8KwMzYnMDAuMCJF!5e0!3m2!1sen!2sin!4v1635000000000!5m2!1sen!2sin"
-                width="100%"
-                height="250"
-                style={{ border: 0, borderRadius: '8px' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="ByteSpark Office Location"
-              />
-            </MapContainer>
-          </InfoSection>
+            <InfoSection variants={itemVariants}>
+              <MapContainer>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0!2d77.6!3d12.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzEyLjAiTiA3N8KwMzYnMDAuMCJF!5e0!3m2!1sen!2sin!4v1635000000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="250"
+                  style={{ border: 0, borderRadius: '8px' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="ByteSpark Office Location"
+                />
+              </MapContainer>
+            </InfoSection>
+
+            <TimingsBox variants={itemVariants}>
+              <h3>Timings</h3>
+              <div>
+                <div>Mon - Fri: 09:00 AM - 06:00 PM</div>
+              </div>
+            </TimingsBox>
+          </LeftColumn>
         </ContactInfo>
 
-        <Form 
-          onSubmit={handleSubmit}
-          variants={containerVariants}
-          id = 'form'
-        >
-          <InputGroup>
-            <Input
-              type="text"
-              placeholder="Your Name"
-              value={formData.Name}
-              onChange={(e) => handleInputChange('Name', e.target.value)}
-              required
-              variants={itemVariants}
-              whileFocus={{ scale: 1.02 }}
-            />
-          </InputGroup>
-          
-          <InputGroup>
-            <Input
-              type="text"
-              placeholder="Your Number"
-              value={formData.Number}
-              onChange={(e) => handleInputChange('Number', e.target.value)}
-              required
-              variants={itemVariants}
-              whileFocus={{ scale: 1.02 }}
-              $hasError={!!errors.Number}
-            />
-            {errors.Number && <ErrorMessage>{errors.Number}</ErrorMessage>}
-          </InputGroup>
-          
-          <InputGroup>
-            <Input
-              type="email"
-              placeholder="Your Email"
-              value={formData.Email}
-              onChange={(e) => handleInputChange('Email', e.target.value)}
-              required
-              variants={itemVariants}
-              whileFocus={{ scale: 1.02 }}
-              $hasError={!!errors.Email}
-            />
-            {errors.Email && <ErrorMessage>{errors.Email}</ErrorMessage>}
-          </InputGroup>
-          
-          <InputGroup>
-            <Input
-              type="text"
-              placeholder="Subject"
-              value={formData.Subject}
-              onChange={(e) => handleInputChange('Subject', e.target.value)}
-              required
-              variants={itemVariants}
-              whileFocus={{ scale: 1.02 }}
-            />
-          </InputGroup>
-          
-          <InputGroup>
-            <TextArea
-              placeholder="Your Message"
-              value={formData.Message}
-              onChange={(e) => handleInputChange('Message', e.target.value)}
-              required
-              variants={itemVariants}
-              whileFocus={{ scale: 1.02 }}
-            />
-          </InputGroup>
-          
-          <SubmitButton
-            type="submit"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+        <FormCard variants={containerVariants} initial="hidden" animate="visible">
+          <FormTitle>Submit Your Query</FormTitle>
+          <Form
+            onSubmit={handleSubmit}
+            variants={containerVariants}
+            id='form'
           >
-            Send Message
-          </SubmitButton>
-        </Form>
+            <InputGroup>
+              <Input
+                type="text"
+                placeholder="Your Name"
+                value={formData.Name}
+                onChange={(e) => handleInputChange('Name', e.target.value)}
+                required
+                variants={itemVariants}
+                whileFocus={{ scale: 1.02 }}
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Input
+                type="text"
+                placeholder="Your Number"
+                value={formData.Number}
+                onChange={(e) => handleInputChange('Number', e.target.value)}
+                required
+                variants={itemVariants}
+                whileFocus={{ scale: 1.02 }}
+                $hasError={!!errors.Number}
+              />
+              {errors.Number && <ErrorMessage>{errors.Number}</ErrorMessage>}
+            </InputGroup>
+
+            <InputGroup>
+              <Input
+                type="email"
+                placeholder="Your Email"
+                value={formData.Email}
+                onChange={(e) => handleInputChange('Email', e.target.value)}
+                required
+                variants={itemVariants}
+                whileFocus={{ scale: 1.02 }}
+                $hasError={!!errors.Email}
+              />
+              {errors.Email && <ErrorMessage>{errors.Email}</ErrorMessage>}
+            </InputGroup>
+
+            <InputGroup>
+              <Input
+                type="text"
+                placeholder="Subject"
+                value={formData.Subject}
+                onChange={(e) => handleInputChange('Subject', e.target.value)}
+                required
+                variants={itemVariants}
+                whileFocus={{ scale: 1.02 }}
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <TextArea
+                placeholder="Your Message"
+                value={formData.Message}
+                onChange={(e) => handleInputChange('Message', e.target.value)}
+                required
+                variants={itemVariants}
+                whileFocus={{ scale: 1.02 }}
+              />
+            </InputGroup>
+
+            <SubmitButton
+              type="submit"
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Send Message
+            </SubmitButton>
+          </Form>
+        </FormCard>
       </ContactGrid>
     </ContactContainer>
   );
