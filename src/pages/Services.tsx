@@ -256,42 +256,42 @@ const Services = () => {
       id: 'web-development',
       title: 'Web Development',
       description: 'Custom websites and web applications built with modern technologies.',
-      image: '/img/react.jpg',
+      image: '/img/web-dev.png',
       tags: ['React', 'Next.js', 'Node.js', 'TypeScript']
     },
     {
       id: 'app-development',
       title: 'App Development',
       description: 'Native and cross-platform mobile applications for iOS and Android.',
-      image: '/img/HomePage4.jpg',
+      image: '/img/app-dev.png',
       tags: ['React Native', 'Flutter', 'iOS', 'Android']
     },
     {
       id: 'cloud-services',
       title: 'Cloud Services',
       description: 'Scalable cloud infrastructure and deployment solutions.',
-      image: '/img/cloud.jpg',
+      image: '/img/cloud-computing.png',
       tags: ['AWS', 'Azure', 'DevOps', 'Docker']
     },
     {
       id: 'ai-ml-services',
       title: 'AI/ML Services',
       description: 'Artificial Intelligence and Machine Learning solutions for business automation.',
-      image: '/img/typescript.jpg',
+      image: '/img/ai-ml.png',
       tags: ['Machine Learning', 'NLP', 'Computer Vision', 'AI Integration']
     },
     {
       id: 'uiux-design',
       title: 'UI/UX Design',
       description: 'User-centered design solutions for exceptional digital experiences.',
-      image: '/img/uiux.png',
+      image: '/img/ui-ux.png',
       tags: ['Figma', 'Prototyping', 'User Research', 'Design Systems']
     },
     {
       id: 'seo-optimisation',
-      title: 'SEO Optimisation',
+      title: 'SEO Services',
       description: 'Search Engine Optimization to improve visibility and rankings.',
-      image: '/img/HomePage2.jpg',
+      image: '/img/seo.png',
       tags: ['Keyword Research', 'On-Page SEO', 'Technical SEO', 'Analytics']
     },
     {

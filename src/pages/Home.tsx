@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { blogPosts } from '../data/blogs';
+// blog posts removed from Home — replaced by "Why Choose Us" cards below
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faJs,
@@ -625,6 +625,45 @@ const ViewAllButton = styled(Link)`
   }
 `;
 
+// Why Choose Us small cards
+const WhyGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+`;
+
+const WhyCard = styled.div`
+  background: ${({ theme }) => theme.colors.background.light};
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main}10;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px ${({ theme }) => theme.colors.primary.main}10;
+  }
+
+  h3 {
+    margin: 0;
+    color: ${({ theme }) => theme.colors.primary.main};
+    font-size: 1.05rem;
+  }
+
+  p {
+    margin: 0;
+    color: ${({ theme }) => theme.colors.text.primary};
+    opacity: 0.9;
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+`;
+
 const TechIcon = styled.div<{ delay: number; size: number; top: number; left: number; color: string }>`
   position: absolute;
   top: ${props => props.top}%;
@@ -719,7 +758,7 @@ const ShimmerEffect = styled.div`
 `;
 
 const Home = () => {
-  const recentPosts = blogPosts.slice(0, 3);
+  // recent blog posts removed; replaced by Why Choose Us cards
 
   const services = [
     {
@@ -779,6 +818,30 @@ const Home = () => {
       technologies: ["Google Ads", "HubSpot", "Mailchimp", "Hootsuite"]
     }
   ];
+
+  const whyItems = [
+  {
+    title: 'Tech Expertise',
+    icon: '🤖',
+    description: 'AI. Data. Full-Stack. We build smart, high-performance tech that delivers results.',
+  },
+  {
+    title: 'Flexible Models',
+    icon: '🔄',
+    description: 'Hire us your way — consulting, contracts, or full delivery. We fit your workflow.',
+  },
+  {
+    title: 'Scalable Results',
+    icon: '📈',
+    description: 'Built to grow with you — innovative, future-ready, and built for scale.',
+  },
+  {
+    title: 'Trusted Partner',
+    icon: '🔒',
+    description: 'Reliable. Consistent. Always on time. That’s how we earn your trust.',
+  },
+];
+
 
   return (
     <HomeContainer
@@ -966,26 +1029,16 @@ const Home = () => {
       </Section>
 
       <Section>
-        <SectionTitle>Latest Blog Posts</SectionTitle>
-        <BlogGrid>
-          {recentPosts.map((post, index) => (
-            <BlogCard
-              key={post.id}
-              to={`/blog/${post.id}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <BlogImage src={post.image} alt={post.title} />
-              <BlogContent>
-                <h3>{post.title}</h3>
-                <p>{post.description}</p>
-              </BlogContent>
-            </BlogCard>
+        <SectionTitle>Why Choose Us</SectionTitle>
+        <WhyGrid>
+          {whyItems.map((item, i) => (
+            <WhyCard key={i}>
+              <div style={{ fontSize: 28 }}>{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </WhyCard>
           ))}
-        </BlogGrid>
-        <ViewAllButton to="/blog">View All Posts →</ViewAllButton>
+        </WhyGrid>
       </Section>
     </HomeContainer>
   );
