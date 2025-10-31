@@ -814,7 +814,7 @@ const Home = () => {
       title: "Digital Marketing",
       description: "Comprehensive digital marketing strategies including social media management, content marketing, and performance tracking to grow your business online.",
       link: "/services/digital-marketing",
-      image: "/img/HomePage6.jpg",
+      image: "/img/digital-marketing.png",
       technologies: ["Google Ads", "HubSpot", "Mailchimp", "Hootsuite"]
     }
   ];

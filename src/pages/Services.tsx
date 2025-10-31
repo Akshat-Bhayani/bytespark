@@ -55,14 +55,14 @@ const ServiceCard = styled(motion(Link))`
 
 const ServiceImage = styled.div`
   width: 100%;
-  height: 250px;
+  height: 280px;
   overflow: hidden;
   position: relative;
 
   img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 280px;
+    object-fit: contain;
     transition: transform 0.3s ease;
   }
 
@@ -298,7 +298,7 @@ const Services = () => {
       id: 'digital-marketing',
       title: 'Digital Marketing',
       description: 'Comprehensive digital marketing strategies to grow your online presence.',
-      image: '/img/HomePage6.jpg',
+      image: '/img/digital-marketing.png',
       tags: ['Social Media', 'Content Marketing', 'PPC', 'Email Marketing']
     }
   ];

@@ -83,7 +83,7 @@ export const blogPosts: BlogPost[] = [
     HTTPS implementation, and protection against common vulnerabilities like XSS, CSRF, and SQL injection. We'll also 
     explore modern security tools, compliance requirements (GDPR, CCPA), incident response strategies, and how to conduct 
     effective security audits. Learn how to build secure applications that protect both your business and your users...`,
-    image: "./img/HomePage6.jpg",
+    image: "./img/digital-marketing.png",
     tags: ["Cybersecurity", "Web Development", "Security"],
     date: "October 12, 2025",
     author: "David Kumar"
