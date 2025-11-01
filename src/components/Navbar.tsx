@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Nav = styled.nav`
@@ -199,12 +199,19 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
+  const navigate = useNavigate();
 
+  const handleLogoClick = () => {
+      navigate('/'); // or navigate('/home') if your route is /home
+    };
   return (
     <Nav>
       <NavContainer>
         {/* <Logo href="/"> */}
-          <LogoImage src="/img/company-logo.png" alt="ByteSpark Logo" />
+          <LogoImage 
+          src="/img/company-logo.png" 
+          alt="ByteSpark Logo"
+          onClick={handleLogoClick}/>
           {/* <LogoText>ByteSpark</LogoText> */}
         {/* </Logo> */}
 

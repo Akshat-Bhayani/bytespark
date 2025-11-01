@@ -33,9 +33,9 @@ const Hero = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: 
-    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)),
-    url('/img/about-hero.png') center/cover no-repeat;
+  // background: 
+  //   linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)),
+  //   url('/img/about-hero.png') center/cover no-repeat;
   
   &::after {
     content: '';

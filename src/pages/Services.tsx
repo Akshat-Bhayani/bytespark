@@ -162,8 +162,8 @@ const Tag = styled.span`
   transition: all 0.3s ease;
 
   ${ServiceCard}:hover & {
-    background: ${({ theme }) => theme.colors.primary.main};
-    color: white;
+    // background: ${({ theme }) => theme.colors.primary.main};
+    // color: white;
   }
 `;
 

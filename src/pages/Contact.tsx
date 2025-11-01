@@ -1,194 +1,159 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { PageHeading, PageSubheading, pageHeadingAnimation, pageSubheadingAnimation } from '../styles/PageHeading';
+import { Copy } from 'lucide-react';
+import {
+  PageHeading,
+  PageSubheading,
+  pageHeadingAnimation,
+  pageSubheadingAnimation,
+} from '../styles/PageHeading';
 
 const ContactContainer = styled(motion.div)`
-  padding: ${props => props.theme.spacing.xxl} ${props => props.theme.spacing.lg};
+  padding: ${(p) => p.theme.spacing.xxl} ${(p) => p.theme.spacing.lg};
   max-width: 1200px;
   margin: 0 auto;
 `;
 
-const ContactGrid = styled.div`
+const InfoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${props => props.theme.spacing.xl};
-  margin-top: ${props => props.theme.spacing.lg};
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: ${(p) => p.theme.spacing.lg};
+  margin-top: ${(p) => p.theme.spacing.xl};
 `;
 
-// Left column helpers for the requested layout
-const LeftColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${props => props.theme.spacing.md};
-`;
+const InfoCard = styled(motion.div)`
+  background: ${(p) => p.theme.colors.background.light};
+  border-radius: ${(p) => p.theme.borderRadius.medium};
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid ${(p) => p.theme.colors.primary.main}10;
+  position: relative;
 
-const TopPair = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${props => props.theme.spacing.md};
-`;
-
-const TimingsBox = styled(motion.div)`
-  margin-top: ${props => props.theme.spacing.lg};
-  padding: ${props => props.theme.spacing.sm};
-  background: ${props => props.theme.colors.background.light};
-  border-radius: ${props => props.theme.borderRadius.medium};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: ${props => props.theme.spacing.sm};
-  border: 1px solid ${props => props.theme.colors.primary.main}10;
-  h3 { margin: 0; color: ${props => props.theme.colors.primary.main}; }
-`;
-
-const FormCard = styled(motion.div)`
-  background: ${props => props.theme.colors.background.light};
-  padding: ${props => props.theme.spacing.lg};
-  border-radius: ${props => props.theme.borderRadius.medium};
-  box-shadow: 0 8px 30px rgba(2,6,23,0.06);
-`;
-
-const FormTitle = styled.h3`
-  margin: 0 0 ${p => p.theme.spacing.md} 0;
-  color: ${p => p.theme.colors.primary.dark};
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.1px;
-  padding-bottom: ${p => p.theme.spacing.sm};
-  border-bottom: 1px solid ${p => p.theme.colors.primary.main}10;
-`;
-
-const ContactInfo = styled(motion.div)`
-  h2 {
-    color: ${props => props.theme.colors.text.secondary};
-    margin-bottom: ${props => props.theme.spacing.md};
-    font-size: 1.8rem;
+  h3 {
+    color: ${(p) => p.theme.colors.primary.main};
+    font-weight: 700;
+    margin-bottom: ${(p) => p.theme.spacing.sm};
   }
 
   p {
-    color: ${props => props.theme.colors.text.muted};
+    color: ${(p) => p.theme.colors.text.muted};
     line-height: 1.6;
-    margin-bottom: ${props => props.theme.spacing.lg};
+    font-size: 0.95rem;
+    margin: 0;
+    display: inline-block;
   }
-`;
 
-const InfoSection = styled(motion.div)`
-  background: ${props => props.theme.colors.background.light};
-  border-radius: ${props => props.theme.borderRadius.medium};
-  padding: ${'0.5rem 0.5rem'};
-  text-align: center;
-  h3 {
-    color: ${props => props.theme.colors.primary.main};
-    margin-bottom: ${props => props.theme.spacing.sm};
-  }
-`;
+  .copy-icon {
+    position: absolute;
+    top: ${(p) => p.theme.spacing.md};
+    right: ${(p) => p.theme.spacing.md};
+    cursor: pointer;
+    color: ${(p) => p.theme.colors.primary.main};
+    transition: transform 0.2s ease;
 
-const MapContainer = styled.div`
-  border-radius: ${props => props.theme.borderRadius.medium};
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  
-  iframe {
-    filter: grayscale(20%);
-    transition: filter 0.3s ease;
-    
     &:hover {
-      filter: grayscale(0%);
+      transform: scale(1.2);
     }
+  }
+`;
+
+const FormCard = styled(motion.div)`
+  background: ${(p) => p.theme.colors.background.light};
+  padding: ${(p) => p.theme.spacing.xl};
+  border-radius: ${(p) => p.theme.borderRadius.medium};
+  box-shadow: 0 8px 30px rgba(2, 6, 23, 0.06);
+  margin: ${(p) => p.theme.spacing.xxl} auto 0 auto;
+  width: 55%;
+  min-width: 320px;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  h3 {
+    text-align: center;
+    color: ${(p) => p.theme.colors.primary.dark};
+    margin-bottom: ${(p) => p.theme.spacing.md};
   }
 `;
 
 const Form = styled(motion.form)`
   display: flex;
   flex-direction: column;
-  gap: ${props => props.theme.spacing.md};
-  margin-top: 30px;
+  gap: ${(p) => p.theme.spacing.md};
 `;
 
 const Input = styled(motion.input)<{ $hasError?: boolean }>`
-  padding: ${props => props.theme.spacing.md};
-  border: 1px solid ${props => props.$hasError ? '#e74c3c' : 'rgba(0,0,0,0.08)'};
-  border-radius: ${props => props.theme.borderRadius.medium};
+  padding: ${(p) => p.theme.spacing.md};
+  border: 1px solid ${(p) => (p.$hasError ? '#e74c3c' : 'rgba(0,0,0,0.08)')};
+  border-radius: ${(p) => p.theme.borderRadius.medium};
   font-size: 1rem;
-  background: ${props => props.theme.colors.background.light};
-  transition: ${props => props.theme.transitions.default};
+  background: ${(p) => p.theme.colors.background.light};
+  transition: ${(p) => p.theme.transitions.default};
 
   &:focus {
     outline: none;
-    border-color: ${props => props.$hasError ? '#e74c3c' : props.theme.colors.primary.main};
-    box-shadow: ${props => props.theme.shadows.small};
+    border-color: ${(p) => (p.$hasError ? '#e74c3c' : p.theme.colors.primary.main)};
+    box-shadow: ${(p) => p.theme.shadows.small};
+  }
+`;
+
+const TextArea = styled(motion.textarea)`
+  padding: ${(p) => p.theme.spacing.md};
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: ${(p) => p.theme.borderRadius.medium};
+  font-size: 1rem;
+  min-height: 130px;
+  resize: vertical;
+  background: ${(p) => p.theme.colors.background.light};
+
+  &:focus {
+    outline: none;
+    border-color: ${(p) => p.theme.colors.primary.main};
+    box-shadow: ${(p) => p.theme.shadows.small};
+  }
+`;
+
+const SubmitButton = styled(motion.button)`
+  background: ${(p) => p.theme.colors.primary.main};
+  color: ${(p) => p.theme.colors.text.light};
+  padding: ${(p) => p.theme.spacing.md} ${(p) => p.theme.spacing.lg};
+  border: none;
+  border-radius: ${(p) => p.theme.borderRadius.full};
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: ${(p) => p.theme.transitions.default};
+  align-self: center;
+  width: 50%;
+
+  &:hover {
+    background: ${(p) => p.theme.colors.state.hover};
+    transform: translateY(-2px);
+    box-shadow: ${(p) => p.theme.shadows.medium};
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
 const ErrorMessage = styled.div`
   color: #e74c3c;
   font-size: 0.9rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
   font-weight: 500;
 `;
 
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const TextArea = styled(motion.textarea)`
-  padding: ${props => props.theme.spacing.md};
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: ${props => props.theme.borderRadius.medium};
-  font-size: 1rem;
-  min-height: 130px;
-  background: ${props => props.theme.colors.background.light};
-  transition: ${props => props.theme.transitions.default};
-  resize: vertical;
-
-  &:focus {
-    outline: none;
-    border-color: ${props => props.theme.colors.primary.main};
-    box-shadow: ${props => props.theme.shadows.small};
-  }
-`;
-
-const SubmitButton = styled(motion.button)`
-  background: ${props => props.theme.colors.primary.main};
-  color: ${props => props.theme.colors.text.light};
-  padding: ${props => props.theme.spacing.md} ${props => props.theme.spacing.lg};
-  border: none;
-  border-radius: ${props => props.theme.borderRadius.full};
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: ${props => props.theme.transitions.default};
-
-  &:hover {
-    background: ${props => props.theme.colors.state.hover};
-    transform: translateY(-2px);
-    box-shadow: ${props => props.theme.shadows.medium};
-  }
-`;
-
-// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5
-    }
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const Contact = () => {
@@ -199,244 +164,148 @@ const Contact = () => {
     Message: '',
     Number: '',
   });
+  const [errors, setErrors] = useState({ Email: '', Number: '' });
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const [errors, setErrors] = useState({
-    Email: '',
-    Number: '',
-  });
+  const validateEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePhone = (phone: string) =>
+    /^[\+]?[1-9][\d]{0,15}$/.test(phone.replace(/\s/g, ''));
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePhone = (phone: string): boolean => {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
+  const handleCopy = async (text: string, type: string) => {
+    await navigator.clipboard.writeText(text);
+    setCopied(type);
+    setTimeout(() => setCopied(null), 2000);
   };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
 
-    // Real-time validation
-    if (field === 'Email') {
-      if (value && !validateEmail(value)) {
-        setErrors({ ...errors, Email: 'Please enter a valid email address' });
-      } else {
-        setErrors({ ...errors, Email: '' });
-      }
-    }
-
-    if (field === 'Number') {
-      if (value && !validatePhone(value)) {
-        setErrors({ ...errors, Number: 'Please enter a valid phone number' });
-      } else {
-        setErrors({ ...errors, Number: '' });
-      }
-    }
+    if (field === 'Email')
+      setErrors({
+        ...errors,
+        Email: value && !validateEmail(value) ? 'Invalid email' : '',
+      });
+    if (field === 'Number')
+      setErrors({
+        ...errors,
+        Number: value && !validatePhone(value) ? 'Invalid phone' : '',
+      });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate before submission
     const emailValid = validateEmail(formData.Email);
     const phoneValid = validatePhone(formData.Number);
-
     if (!emailValid || !phoneValid) {
       setErrors({
-        Email: !emailValid ? 'Please enter a valid email address' : '',
-        Number: !phoneValid ? 'Please enter a valid phone number' : '',
+        Email: !emailValid ? 'Invalid email' : '',
+        Number: !phoneValid ? 'Invalid phone' : '',
       });
       return;
     }
-    const apiEndPoint = 'https://script.google.com/macros/s/AKfycbyrlWED2ew2FIQMgMjoiIGlmfN7tE1bl_78wnVD5ErL7HjGnhKLosy_-a0SkKKngzVJDg/exec';
+
     const formD = new FormData();
-    formD.append('Name', formData.Name);
-    formD.append('Email', formData.Email);
-    formD.append('Subject', formData.Subject);
-    formD.append('Message', formData.Message);
-    formD.append('PhoneNumber', formData.Number);
-    formD.append('Date', new Date().toLocaleDateString())
-    setFormData({
-      Name: '',
-      Email: '',
-      Subject: '',
-      Message: '',
-      Number: '',
-    });
+    Object.entries(formData).forEach(([k, v]) => formD.append(k, v));
+    formD.append('Date', new Date().toLocaleDateString());
+
     try {
-      const response = await fetch(apiEndPoint, {
-        method: 'POST',
-        body: formD,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      const data = await response.json();
-      setFormData({
-        Name: '',
-        Email: '',
-        Subject: '',
-        Message: '',
-        Number: '',
-      });
-      console.log('data', data);
+      await fetch(
+        'https://script.google.com/macros/s/AKfycbyrlWED2ew2FIQMgMjoiIGlmfN7tE1bl_78wnVD5ErL7HjGnhKLosy_-a0SkKKngzVJDg/exec',
+        { method: 'POST', body: formD }
+      );
+      setFormData({ Name: '', Email: '', Subject: '', Message: '', Number: '' });
+      console.log('Message sent!');
     } catch (err) {
-      console.log(err instanceof Error ? err.message : 'Something went wrong');
+      console.error(err);
     }
   };
 
-  // const handleSubmit = async (e: FormEvent) => {
-  //   e.preventDefault();
-  //   // Handle form submission here
-  //   try{
-  //   }catch(error){
-
-  //   }
-  //   console.log(formData);
-  // };
-
   return (
-    <ContactContainer
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <PageHeading {...pageHeadingAnimation}>
-        Get in Touch
-      </PageHeading>
+    <ContactContainer initial="hidden" animate="visible" variants={containerVariants}>
+      <PageHeading {...pageHeadingAnimation}>Get in Touch</PageHeading>
       <PageSubheading {...pageSubheadingAnimation}>
         We'd love to hear from you.
       </PageSubheading>
-      <ContactGrid>
-        <ContactInfo style={{ marginTop: '45px' }}>
-          <LeftColumn>
-            <TopPair>
-              <InfoSection variants={itemVariants}>
-                <h3>Our Office</h3>
-                <p>
-                  SSV Pearl, Gulmohar Enclave Rd, Munnekollal, Bengaluru, Karnataka 560037
-                </p>
-              </InfoSection>
 
-              {/* Keep Get in Touch section unchanged as requested */}
-              <InfoSection variants={itemVariants}>
-                <h3>Get in Touch</h3>
-                <p>Email: info@bytespark.in
-                  <br />Phone: +91 9876543210</p>
-              </InfoSection>
-            </TopPair>
+      {/* --- Info Cards --- */}
+      <InfoGrid>
+        <InfoCard variants={itemVariants}>
+          <h3>Email</h3>
+          <p>info@bytespark.in</p>
+          {copied !== 'email' && <Copy
+            className="copy-icon"
+            size={18}
+            onClick={() => handleCopy('info@bytespark.in', 'email')}
+          />}
+          {copied === 'email' && <small className="copy-icon" style={{ color: '#22c55e' }}>Copied!</small>}
+        </InfoCard>
 
-            <InfoSection variants={itemVariants}>
-              <MapContainer>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.0!2d77.6!3d12.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzEyLjAiTiA3N8KwMzYnMDAuMCJF!5e0!3m2!1sen!2sin!4v1635000000000!5m2!1sen!2sin"
-                  width="100%"
-                  height="250"
-                  style={{ border: 0, borderRadius: '8px' }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="ByteSpark Office Location"
-                />
-              </MapContainer>
-            </InfoSection>
+        <InfoCard variants={itemVariants}>
+          <h3>Phone</h3>
+          <p>+91 9274941231</p>
+          {copied !== 'phone' && <Copy
+            className="copy-icon"
+            size={18}
+            onClick={() => handleCopy('9274941231', 'phone')}
+          />}
+          {copied === 'phone' && <small className="copy-icon" style={{ color: '#22c55e' }}>Copied!</small>}
+        </InfoCard>
+      </InfoGrid>
 
-            <TimingsBox variants={itemVariants}>
-              <h3>Timings</h3>
-              <div>
-                <div>Mon - Fri: 09:00 AM - 06:00 PM</div>
-              </div>
-            </TimingsBox>
-          </LeftColumn>
-        </ContactInfo>
+      {/* --- Contact Form --- */}
+      <FormCard variants={itemVariants}>
+        <h3>Submit Your Query</h3>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            placeholder="Your Name"
+            value={formData.Name}
+            onChange={(e) => handleInputChange('Name', e.target.value)}
+            required
+          />
+          <Input
+            type="text"
+            placeholder="Your Number"
+            value={formData.Number}
+            onChange={(e) => handleInputChange('Number', e.target.value)}
+            required
+            $hasError={!!errors.Number}
+          />
+          {errors.Number && <ErrorMessage>{errors.Number}</ErrorMessage>}
 
-        <FormCard variants={containerVariants} initial="hidden" animate="visible">
-          <FormTitle>Submit Your Query</FormTitle>
-          <Form
-            onSubmit={handleSubmit}
-            variants={containerVariants}
-            id='form'
-          >
-            <InputGroup>
-              <Input
-                type="text"
-                placeholder="Your Name"
-                value={formData.Name}
-                onChange={(e) => handleInputChange('Name', e.target.value)}
-                required
-                variants={itemVariants}
-                whileFocus={{ scale: 1.02 }}
-              />
-            </InputGroup>
+          <Input
+            type="email"
+            placeholder="Your Email"
+            value={formData.Email}
+            onChange={(e) => handleInputChange('Email', e.target.value)}
+            required
+            $hasError={!!errors.Email}
+          />
+          {errors.Email && <ErrorMessage>{errors.Email}</ErrorMessage>}
 
-            <InputGroup>
-              <Input
-                type="text"
-                placeholder="Your Number"
-                value={formData.Number}
-                onChange={(e) => handleInputChange('Number', e.target.value)}
-                required
-                variants={itemVariants}
-                whileFocus={{ scale: 1.02 }}
-                $hasError={!!errors.Number}
-              />
-              {errors.Number && <ErrorMessage>{errors.Number}</ErrorMessage>}
-            </InputGroup>
+          <Input
+            type="text"
+            placeholder="Subject"
+            value={formData.Subject}
+            onChange={(e) => handleInputChange('Subject', e.target.value)}
+            required
+          />
 
-            <InputGroup>
-              <Input
-                type="email"
-                placeholder="Your Email"
-                value={formData.Email}
-                onChange={(e) => handleInputChange('Email', e.target.value)}
-                required
-                variants={itemVariants}
-                whileFocus={{ scale: 1.02 }}
-                $hasError={!!errors.Email}
-              />
-              {errors.Email && <ErrorMessage>{errors.Email}</ErrorMessage>}
-            </InputGroup>
+          <TextArea
+            placeholder="Your Message"
+            value={formData.Message}
+            onChange={(e) => handleInputChange('Message', e.target.value)}
+            required
+          />
 
-            <InputGroup>
-              <Input
-                type="text"
-                placeholder="Subject"
-                value={formData.Subject}
-                onChange={(e) => handleInputChange('Subject', e.target.value)}
-                required
-                variants={itemVariants}
-                whileFocus={{ scale: 1.02 }}
-              />
-            </InputGroup>
-
-            <InputGroup>
-              <TextArea
-                placeholder="Your Message"
-                value={formData.Message}
-                onChange={(e) => handleInputChange('Message', e.target.value)}
-                required
-                variants={itemVariants}
-                whileFocus={{ scale: 1.02 }}
-              />
-            </InputGroup>
-
-            <SubmitButton
-              type="submit"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Send Message
-            </SubmitButton>
-          </Form>
-        </FormCard>
-      </ContactGrid>
+          <SubmitButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            Send Message
+          </SubmitButton>
+        </Form>
+      </FormCard>
     </ContactContainer>
   );
 };
 
-export default Contact; 
+export default Contact;

@@ -268,11 +268,11 @@ const Section = styled.section`
 `;
 
 const CrouselSection = styled.section`
-  max-width: 1500px;
+  // max-width: 1500px;
   margin-top: 100px;
   position: relative;
   background: ${({ theme }) => theme.colors.background.main};
-  padding: 3rem;
+  padding: 1rem;
   
   &::before {
     paddin-top: 2rem;
@@ -324,7 +324,7 @@ const ServiceImage = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    background: ${({ theme }) => theme.colors.background.light};
+    // background: ${({ theme }) => theme.colors.background.light};
     border-radius: 12px;
   }
 
@@ -774,7 +774,7 @@ const Home = () => {
       title: "App Development",
       description: "Native and cross-platform mobile applications for iOS and Android. We build feature-rich mobile apps that provide seamless user experiences across all devices.",
       link: "/services/app-development",
-      image: "/img/app-dev.png",
+      image: "/img/app-dev-home.png",
       technologies: ["React Native", "Flutter", "Swift", "Kotlin"]
     },
     {
@@ -814,7 +814,7 @@ const Home = () => {
       title: "Digital Marketing",
       description: "Comprehensive digital marketing strategies including social media management, content marketing, and performance tracking to grow your business online.",
       link: "/services/digital-marketing",
-      image: "/img/digital-marketing.png",
+      image: "/img/digital-marketing-big.png",
       technologies: ["Google Ads", "HubSpot", "Mailchimp", "Hootsuite"]
     }
   ];
@@ -923,7 +923,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <CTAButton to="/contact">Let's Get Started</CTAButton>
+            <SecondaryButton to="/contact">Let's Get Started</SecondaryButton>
           </motion.div>
         </HeroContent>
       </HeroSection>
@@ -944,8 +944,8 @@ const Home = () => {
               >
                 <ServiceImage>
                   <div className="stack">
-                    <div className="stack-layer back"></div>
-                    <div className="stack-layer mid"></div>
+                    {/* <div className="stack-layer back"></div>
+                    <div className="stack-layer mid"></div> */}
                     <div className="stack-layer front">
                       <img src={service.image} alt={service.title} />
                     </div>
@@ -971,8 +971,8 @@ const Home = () => {
               >
                 <ServiceImage>
                   <div className="stack">
-                    <div className="stack-layer back"></div>
-                    <div className="stack-layer mid"></div>
+                    {/* <div className="stack-layer back"></div> */}
+                    {/* <div className="stack-layer mid"></div> */}
                     <div className="stack-layer front">
                       <img src={service.image} alt={service.title} />
                     </div>

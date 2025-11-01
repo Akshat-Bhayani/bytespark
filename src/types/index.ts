@@ -3,7 +3,7 @@ export interface Service {
   title: string;
   description: string;
   price: {
-    start: number;
+    start: any;
     end?: number;
   };
   features: string[];

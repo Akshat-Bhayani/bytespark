@@ -6,7 +6,7 @@ export const services: Service[] = [
     title: 'Web Development',
     description: 'Custom websites and web applications built with modern technologies',
     price: {
-      start: 2999
+      start: '16,999'
     },
     features: [
       'Responsive Design',
@@ -43,7 +43,7 @@ export const services: Service[] = [
     title: 'App Development',
     description: 'Native and cross-platform mobile applications for iOS and Android',
     price: {
-      start: 4999
+      start: '40,999'
     },
     features: [
       'iOS & Android Development',
@@ -80,7 +80,7 @@ export const services: Service[] = [
     title: 'Cloud Services',
     description: 'Scalable cloud infrastructure and deployment solutions',
     price: {
-      start: 3999
+      start: '16,999'
     },
     features: [
       'Cloud Migration',
@@ -117,7 +117,7 @@ export const services: Service[] = [
     title: 'AI/ML Services',
     description: 'Artificial Intelligence and Machine Learning solutions for business automation',
     price: {
-      start: 5999
+      start: '69,999'
     },
     features: [
       'Machine Learning Models',
@@ -154,7 +154,7 @@ export const services: Service[] = [
     title: 'UI/UX Design',
     description: 'User-centered design solutions for exceptional digital experiences',
     price: {
-      start: 1999
+      start: '1499 per page'
     },
     features: [
       'User Research & Analysis',
@@ -191,7 +191,7 @@ export const services: Service[] = [
     title: 'SEO Optimisation',
     description: 'Search Engine Optimization to improve visibility and rankings',
     price: {
-      start: 1299
+      start: '8999 per month'
     },
     features: [
       'Keyword Research',
@@ -228,7 +228,7 @@ export const services: Service[] = [
     title: 'Digital Marketing',
     description: 'Comprehensive digital marketing strategies to grow your online presence',
     price: {
-      start: 1799
+      start: 16999
     },
     features: [
       'Social Media Marketing',
