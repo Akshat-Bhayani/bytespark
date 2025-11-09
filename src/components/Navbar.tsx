@@ -219,6 +219,7 @@ const Navbar = () => {
           <NavLink to="/" $isActive={isActive('/')}>Home</NavLink>
           <NavLink to="/about" $isActive={isActive('/about')}>About</NavLink>
           <NavLink to="/services" $isActive={isActive('/services')}>Services</NavLink>
+          <NavLink to="/portfolio" $isActive={isActive('/portfolio')}>Portfolio</NavLink>
           <NavLink to="/blog" $isActive={isActive('/blog')}>Blog</NavLink>
           <NavLink to="/contact" $isActive={isActive('/contact')}>Contact</NavLink>
         </NavLinks>
@@ -242,8 +243,9 @@ const Navbar = () => {
               variants={mobileNavVariants}
             >
               <NavLink to="/" $isActive={isActive('/')} onClick={closeMenu}>Home</NavLink>
-              <NavLink to="/services" $isActive={isActive('/services')} onClick={closeMenu}>Services</NavLink>
               <NavLink to="/about" $isActive={isActive('/about')} onClick={closeMenu}>About</NavLink>
+              <NavLink to="/services" $isActive={isActive('/services')} onClick={closeMenu}>Services</NavLink>
+              <NavLink to="/portfolio" $isActive={isActive('/portfolio')} onClick={closeMenu}>Portfolio</NavLink>
               <NavLink to="/blog" $isActive={isActive('/blog')} onClick={closeMenu}>Blog</NavLink>
               <NavLink to="/contact" $isActive={isActive('/contact')} onClick={closeMenu}>Contact</NavLink>
             </MobileNavLinks>

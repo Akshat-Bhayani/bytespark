@@ -952,11 +952,11 @@ const Home = () => {
                   </div>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
-                <CarouselTechTags>
+                {/* <CarouselTechTags>
                   {service.technologies.map((tech, techIndex) => (
                     <CarouselTechTag key={techIndex}>{tech}</CarouselTechTag>
                   ))}
-                </CarouselTechTags>
+                </CarouselTechTags> */}
               </ServiceCard>
             ))}
             {/* Duplicated set for infinite effect */}
@@ -979,11 +979,11 @@ const Home = () => {
                   </div>
                 </ServiceImage>
                 <ServiceTitle>{service.title}</ServiceTitle>
-                <CarouselTechTags>
+                {/* <CarouselTechTags>
                   {service.technologies.map((tech, techIndex) => (
                     <CarouselTechTag key={techIndex}>{tech}</CarouselTechTag>
                   ))}
-                </CarouselTechTags>
+                </CarouselTechTags> */}
               </ServiceCard>
             ))}
           </CarouselTrack>

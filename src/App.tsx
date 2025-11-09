@@ -9,6 +9,7 @@ import Services from './pages/Services';
 import Blog from './pages/Blog';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Portfolio from './pages/Portfolio';
 import styled from 'styled-components';
 import { GlobalStyles } from './styles/GlobalStyles';
 import ServiceDetail from './pages/ServiceDetail';
@@ -39,6 +40,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/:serviceId" element={<ServiceDetail />} />
+              <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:blogId" element={<BlogPost />} />
               <Route path="/about" element={<About />} />

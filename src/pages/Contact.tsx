@@ -232,11 +232,11 @@ const Contact = () => {
       <InfoGrid>
         <InfoCard variants={itemVariants}>
           <h3>Email</h3>
-          <p>info@bytespark.in</p>
+          <p>contact@bytespark.com</p>
           {copied !== 'email' && <Copy
             className="copy-icon"
             size={18}
-            onClick={() => handleCopy('info@bytespark.in', 'email')}
+            onClick={() => handleCopy('contact@bytespark.com', 'email')}
           />}
           {copied === 'email' && <small className="copy-icon" style={{ color: '#22c55e' }}>Copied!</small>}
         </InfoCard>
